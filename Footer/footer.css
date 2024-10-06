@@ -1,0 +1,109 @@
+/* Reset CSS untuk menghilangkan margin dan padding default */
+html, body {
+    margin: 0; /* Hilangkan margin default */
+    padding: 0; /* Hilangkan padding default */
+    width: 100%; /* Pastikan body menggunakan 100% lebar */
+    overflow-x: hidden; /* Mencegah scroll horizontal */
+    box-sizing: border-box;
+}
+
+* {
+    box-sizing: border-box; /* Terapkan ke semua elemen */
+}
+
+/* Footer Styles */
+.footer {
+    background-color: #e8d9f4; /* Warna latar footer awal */
+    color: #333; /* Warna teks footer */
+    padding: 2rem 1rem; /* Padding atas dan bawah, serta sisi */
+    width: 100%; /* Lebar 100% dari layar tanpa overflow */
+    margin: 0; /* Hilangkan margin */
+    overflow-x: hidden; /* Mencegah scroll horizontal */
+}
+
+.footer-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start; /* Memastikan item di atas tetap sejajar */
+    flex-wrap: wrap;
+    gap: 2rem;
+    text-align: left; /* Mengatur agar <p> rata kiri */
+}
+
+.footer-info div {
+    flex: 1;
+    min-width: 200px;
+}
+
+.footer-info h3 {
+    margin-bottom: 1rem;
+    font-size: 1.5rem; /* Meningkatkan ukuran font */
+    font-weight: bold; /* Mengatur tulisan menjadi tebal */
+    color: #333; /* Warna tulisan tetap gelap */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* Menambahkan bayangan pada teks */
+}
+
+.footer-info p {
+    line-height: 1.7; /* Tinggi garis untuk keterbacaan yang lebih baik */
+    color: #333; /* Mengubah warna tulisan menjadi hitam */
+    font-weight: normal; /* Mengatur tulisan menjadi normal */
+    margin-bottom: 0.5rem; /* Jarak antar paragraf */
+    transition: color 0.3s ease; /* Efek transisi pada warna */
+}
+
+.footer-info p:hover {
+    color: #6e5fe2; /* Mengubah warna saat hover */
+}
+
+.footer-logo {
+    display: flex;
+    flex-direction: column; /* Mengubah menjadi kolom */
+    align-items: flex-start; /* Rata kiri */
+    gap: 0.5rem; /* Jarak antara logo dan teks */
+}
+
+.footer-logo img {
+    height: 60px; /* Ukuran logo di footer disamakan dengan navbar */
+    width: 200px; /* Pastikan lebar logo di footer */
+}
+
+.footer-description {
+    margin-top: 1rem; /* Jarak atas untuk memisahkan dari subtitle */
+    font-size: 0.9rem; /* Ukuran font untuk teks tambahan */
+    color: #333; /* Warna teks tetap gelap */
+    line-height: 1.6; /* Tinggi garis untuk keterbacaan */
+    font-style: italic; /* Mengatur teks menjadi miring */
+    text-align: justify; /* Rata kanan kiri */
+    padding-left: 50px; /* Padding kiri untuk menyamakan dengan footer */
+}
+
+/* Footer Bottom Bar */
+.footer-bottom {
+    background-color: #6e5fe2; /* Warna ungu untuk bagian bawah */
+    color: white;
+    padding: 1rem 0;
+    text-align: left; /* Mengatur teks rata kiri */
+    width: 100%; /* Lebar 100% dari layar tanpa overflow */
+    margin: 0; /* Hilangkan margin */
+    overflow-x: hidden; /* Mencegah scroll horizontal */
+}
+
+.footer-bottom p {
+    margin: 0;
+    padding-left: 50px; /* Padding kiri untuk teks */
+}
+
+.footer-social {
+    margin-top: 1rem;
+}
+
+.footer-social a {
+    color: #333; /* Warna ikon tetap gelap */
+    font-size: 1.5rem;
+    margin: 0 0.5rem;
+    text-decoration: none;
+}
+
+.footer-social a:hover {
+    color: #6e5fe2; /* Mengubah warna saat hover */
+}
