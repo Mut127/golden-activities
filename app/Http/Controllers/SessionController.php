@@ -13,7 +13,7 @@ class SessionController extends Controller
 {
     function login()
     {
-        return view('sesi/login');
+        return view('sesi/logindanregister');
     }
 
     public function loggin(Request $request)
@@ -44,10 +44,10 @@ class SessionController extends Controller
         }
     }
 
-    function register()
-    {
-        return view('sesi/register');
-    }
+    // function register()
+    // {
+    //     return view('sesi/register');
+    // }
 
     function create(Request $request)
     {

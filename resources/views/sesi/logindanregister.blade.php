@@ -5,14 +5,51 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'Golden Activities')</title>
+    <link href="{{ asset('css/loginregister.css') }}" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.5.0/font/bootstrap-icons.min.css">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ asset('fontawesome-free-6.5.2-web/css/all.min.css')}}" rel="stylesheet">
+    @yield('extra-css')
 </head>
 
 <body>
     <div class="container-fluid">
         <div class="forms-container">
+            <div class="text-kembali mt-4 top-right" style="position: absolute; top: 0; right: 0;">
+                <a href="{{ url('/') }}"><img src="{{ asset('images/logo_GA.png') }}" alt="" style="width: 200px; height: auto;"></a>
+            </div>
+            <div class="text-kembali mt-4 top-left" style="position: absolute; top: 0; left: 0;">
+                <a href="{{ url('/') }}"><img src="{{ asset('images/logo_GA.png') }}" alt="" style="width: 200px; height: auto;"></a>
+            </div>
             <div class="signin-signup">
+                <form method="POST" action="/sesi/loggin" class="sign-in-form">
+                    @csrf
+                    <div>
+                        <h1>Hallo, <br> Selamat Datang
+                        </h1>
+                        <p>Ini merupakan tempat spesialmu untuk beraktivitas</p>
+                    </div>
+                    <div class="input-field">
+                        <i class="fa-solid fa-user"></i>
+                        <input type="text" name="email" value="{{ Session::get('email')}}" placeholder="Masukan Email" />
+                    </div>
+                    <div class="input-field">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" name="password" placeholder="Kata Sandi" required id="login-password" />
+                        <span id="login-toggleBtn"></span>
+                    </div>
+                    <input type="submit" value="Masuk" class="btn-primaryy" />
+                </form>
+
                 <form method="POST" action="/sesi/create" class="sign-up-form">
                     @csrf
+                    <div>
+                        <h1>Hallo, <br> Selamat Datang
+                        </h1>
+                        <p>Ini merupakan tempat spesialmu untuk beraktivitas</p>
+                    </div>
                     <div class="input-field">
                         <i class="fas fa-envelope"></i>
                         <input type="email" name="email" placeholder="Masukan Email" required />
@@ -45,6 +82,17 @@
         </div>
 
         <div class="panels-container">
+            <div class="panel left-panel" data-aos="fade-right">
+                <div class="content" style="margin:0%">
+                    <h3>Belum punya akun?</h3>
+                    <p>
+                        Klik di bawah ini untuk membuat akun dan mulai menggunakan layanan elektronik pemerintah
+                    </p>
+                    <button class="btn transparent" id="sign-up-btn">
+                        Daftar
+                    </button>
+                </div>
+            </div>
             <div class="panel right-panel" data-aos="fade-left">
                 <div class="content" style="margin:0%">
                     <h3>Sudah daftar?</h3>
