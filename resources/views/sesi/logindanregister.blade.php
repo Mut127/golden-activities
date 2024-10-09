@@ -87,7 +87,7 @@
                 <div class="content" style="margin:0%">
                     <h3>Belum punya akun?</h3>
                     <p>
-                        Klik di bawah ini untuk membuat akun dan mulai menggunakan layanan elektronik pemerintah
+                        Klik di bawah ini untuk membuat akun dan mulai
                     </p>
                     <button class="btn transparent" id="sign-up-btn">
                         Daftar
