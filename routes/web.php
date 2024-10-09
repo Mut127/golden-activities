@@ -15,6 +15,19 @@ Route::post('/sesi/loggin', [SessionController::class, 'loggin']);
 Route::get('/sesi/register', [SessionController::class, 'register']);
 Route::post('/sesi/create', [SessionController::class, 'create']);
 
+
+Route::get('/profile', function () {
+    return view('page.profile');
+});
+Route::get('/reward', function () {
+    return view('page.reward');
+});
+Route::get('/todolist', function () {
+    return view('page.todolist');
+});
+Route::get('/detailartikel', function () {
+    return view('page.detailartikel');
+});
 Route::middleware(['auth'])->group(function () {
     Route::post('/logout', [SessionController::class, 'logout'])->name('logout');
 });
