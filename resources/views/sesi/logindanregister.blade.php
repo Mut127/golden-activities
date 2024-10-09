@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
-
+   
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,6 +12,7 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="{{ asset('fontawesome-free-6.5.2-web/css/all.min.css')}}" rel="stylesheet">
     @yield('extra-css')
+    
 </head>
 
 <body>
