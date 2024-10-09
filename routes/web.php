@@ -30,4 +30,9 @@ Route::get('/detailartikel', function () {
 });
 Route::middleware(['auth'])->group(function () {
     Route::post('/logout', [SessionController::class, 'logout'])->name('logout');
+    
+
+    Route::view('/aktivitas', 'page.aktivitas'); // Menggunakan path 'page.aktivitas'
+
+    
 });

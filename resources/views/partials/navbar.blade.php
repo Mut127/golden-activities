@@ -10,42 +10,26 @@
         html,
         body {
             margin: 0;
-            /* Hilangkan margin default */
             padding: 0;
-            /* Hilangkan padding default */
             width: 100%;
-            /* Pastikan body menggunakan 100% lebar */
             overflow-x: hidden;
-            /* Mencegah scroll horizontal */
         }
 
         * {
             box-sizing: border-box;
-            /* Terapkan box-sizing ke semua elemen */
         }
 
         /* Navbar Styles */
         .navbar {
             background-color: #fff;
-            /* Warna latar belakang navbar */
             padding: 1rem 2rem;
-            /* Padding atas-bawah dan kiri-kanan */
             display: flex;
-            /* Menggunakan flexbox untuk tata letak */
             justify-content: space-between;
-            /* Jarak antara logo, menu, dan ikon pengguna */
             align-items: center;
-            /* Memastikan item di tengah */
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            /* Bayangan di bawah navbar */
             width: 100%;
-            /* Lebar 100% dari layar */
-            position: relative;
-            /* Agar elemen bisa ditumpuk dengan benar */
-            left: 0;
-            /* Mengatur posisi ke kiri */
-            right: 0;
-            /* Mengatur posisi ke kanan */
+            height: 70px;
+            margin-top: 20px;
+            /* Memberikan jarak di atas navbar */
         }
 
         /* Logo */
@@ -53,58 +37,89 @@
             display: flex;
             align-items: center;
             gap: 1rem;
-            /* Jarak antara logo dan teks */
         }
 
         .navbar-logo img {
             height: 60px;
-            /* Ukuran logo diperbesar */
             width: auto;
-            /* Memastikan lebar otomatis */
         }
 
         /* Menu Navbar */
         .navbar-menu {
             list-style: none;
-            /* Menghilangkan bullet point dari list */
             display: flex;
-            /* Menggunakan flexbox untuk list */
-            gap: 2rem;
-            /* Jarak antar link */
+            justify-content: center;
+            gap: 3rem;
+            flex: 1;
+            font-size: 0.9rem;
+            color: black;
         }
 
         .navbar-menu li {
             display: inline;
-            /* Menjaga item tetap dalam satu baris */
         }
 
         .navbar-menu li a {
             text-decoration: none;
-            /* Menghilangkan garis bawah */
             color: #333;
-            /* Warna teks link */
             font-weight: 500;
-            /* Menebalkan font */
         }
 
         .navbar-menu li a:hover {
             color: #6e5fe2;
-            /* Warna saat hover */
         }
 
         /* Ikon Pengguna */
         .navbar-user {
-            display: flex;
-            /* Menggunakan flexbox untuk ikon */
-            align-items: center;
-            /* Memastikan ikon tetap sejajar */
+            position: relative;
+            margin-right: 100px;
+            /* Mengurangi margin kanan agar profil lebih ke kiri */
         }
 
-        .navbar-user i {
-            font-size: 40px;
-            /* Ukuran ikon 40px */
+        .navbar-user img {
+            width: 50px;
+            /* Ukuran gambar pengguna */
+            height: 50px;
+            border-radius: 50%;
+            /* Membuat gambar menjadi bulat */
+            cursor: pointer;
+        }
+
+        /* Dropdown Menu */
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            left: -120px;
+            /* Geser dropdown ke kiri dengan posisi yang lebih negatif */
+            top: 0px;
+            /* Supaya dropdown sejajar dengan gambar profil */
+            background-color: #fff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+            z-index: 1000;
+            width: 120px;
+            /* Lebar dropdown menu */
+        }
+
+        .dropdown-menu a {
+            display: block;
+            padding: 10px 15px;
+            /* Mengecilkan padding */
             color: #333;
-            /* Warna ikon */
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.85rem;
+            /* Ukuran font yang lebih kecil */
+        }
+
+        .dropdown-menu a:hover {
+            background-color: #f0f0f0;
+        }
+
+        /* Show dropdown when active */
+        .navbar-user.active .dropdown-menu {
+            display: block;
         }
     </style>
     <title>Navbar Example</title>
@@ -124,10 +139,21 @@
             <li><a class="nav-link {{ Request::is('/reward') ? 'active' : '' }}" href="{{ url('/reward') }}">Pencapaian</a></li>
             <li><a class="nav-link {{ Request::is('/artikel') ? 'active' : '' }}" href="{{ url('/artikel') }}">Artikel</a></li>
         </ul>
-        <div class="navbar-user">
-            <i class="fas fa-user-circle"></i> <!-- Ikon profil dari Font Awesome -->
+        <div class="navbar-user" id="navbarUser">
+            <img src="{{ asset('images/person2.jpg') }}" alt="Profil Pengguna"> <!-- Ganti ikon profil dengan gambar pengguna -->
+            <div class="dropdown-menu">
+                <a href="#">Edit Profil</a>
+                <a href="#">Logout</a>
+            </div>
         </div>
     </nav>
+
+    <!-- JavaScript untuk Dropdown -->
+    <script>
+        document.getElementById('navbarUser').addEventListener('click', function() {
+            this.classList.toggle('active');
+        });
+    </script>
 
 </body>
 
