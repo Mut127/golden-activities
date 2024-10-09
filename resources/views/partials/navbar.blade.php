@@ -125,7 +125,7 @@
         </div>
         <ul class="navbar-menu">
             <li><a href="#">Beranda</a></li>
-            <li><a href="#">Aktivitas</a></li>
+            <li><a href="{{ route('aktivitas') }}">Aktivitas</a></li> <!-- Menggunakan route -->
             <li><a href="#" class="active">Daftar Aktivitas</a></li>
             <li><a href="#">Pencapaian</a></li>
             <li><a href="#">Artikel</a></li>
