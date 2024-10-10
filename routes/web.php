@@ -35,6 +35,12 @@ Route::get('/artikel', function () {
 Route::get('/detailartikel', function () {
     return view('page.detailartikel');
 });
+Route::get('/admin-aktivitas', function () {
+    return view('page.admin-aktivitas');
+});
+Route::get('/admin-dashboard', function () {
+    return view('page.admin-dashboard');
+});
 Route::get('/daftar', function () {
     return view('page.daftar'); // Sesuaikan dengan lokasi file Anda
 })->name('daftar');
