@@ -1,13 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+@extends('layouts.app')
+
+@section('title', 'Artikel')
+
+@section('content')
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Golden Activities - Artikel</title>
-    
+
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    
+
     <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
@@ -23,50 +29,58 @@
         }
 
         h3 {
-    font-size: 1.8rem;  /* Membuat ukuran teks menjadi lebih besar */
-    font-weight: bold;
-    color: #2C2C2C;
-}
+            font-size: 1.8rem;
+            /* Membuat ukuran teks menjadi lebih besar */
+            font-weight: bold;
+            color: #2C2C2C;
+        }
+
         h4 {
-            font-size: 1.5rem;  /* Ukuran teks judul dikurangi */
+            font-size: 1.5rem;
+            /* Ukuran teks judul dikurangi */
             font-weight: bold;
             color: #2C2C2C;
         }
 
         .btn-primary {
-    background-color: #6e5fe2;
-    border-color: #6e5fe2;
-    padding: 10px 18px;
-    border-radius: 50px; /* Membuat sudut tombol menjadi bulat */
-    font-size: 0.9rem;
-    display: inline-flex;
-    align-items: center;
-}
+            background-color: #6e5fe2;
+            border-color: #6e5fe2;
+            padding: 10px 18px;
+            border-radius: 50px;
+            /* Membuat sudut tombol menjadi bulat */
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+        }
 
-.btn-primary i {
-    margin-left: 8px; /* Memberi jarak antara teks dan ikon */
-}
+        .btn-primary i {
+            margin-left: 8px;
+            /* Memberi jarak antara teks dan ikon */
+        }
 
-.btn-primary:hover {
-    background-color: #563d7c;
-    border-color: #563d7c;
-}
+        .btn-primary:hover {
+            background-color: #563d7c;
+            border-color: #563d7c;
+        }
 
-.text-right {
-    text-align: right;
-}
+        .text-right {
+            text-align: right;
+        }
 
-.articles-section .text-right {
-    display: flex;
-    justify-content: flex-end;
-    margin: 50px;
-}
+        .articles-section .text-right {
+            display: flex;
+            justify-content: flex-end;
+            margin: 50px;
+        }
 
         /* Mengatur gambar artikel di sebelah kiri */
         .artikel-section img {
-            border-radius: 20px; /* Membuat gambar memiliki sudut melengkung */
-            max-width: 100%; /* Membatasi ukuran gambar maksimal 100% dari kontainer */
-            height: 100px; /* Menjaga proporsi gambar */
+            border-radius: 20px;
+            /* Membuat gambar memiliki sudut melengkung */
+            max-width: 100%;
+            /* Membatasi ukuran gambar maksimal 100% dari kontainer */
+            height: 100px;
+            /* Menjaga proporsi gambar */
             width: 600px;
         }
 
@@ -76,7 +90,8 @@
         }
 
         .center-text {
-            text-align: justify; /* Membuat teks rata tengah */
+            text-align: justify;
+            /* Membuat teks rata tengah */
         }
 
         .artikel-section .btn {
@@ -90,7 +105,8 @@
             }
 
             .artikel-section h3 {
-                font-size: 1.3rem;  /* Ukuran teks judul lebih kecil untuk layar kecil */
+                font-size: 1.3rem;
+                /* Ukuran teks judul lebih kecil untuk layar kecil */
             }
 
             .artikel-section p {
@@ -98,12 +114,15 @@
             }
 
             .btn {
-                font-size: 0.8rem; /* Ukuran teks pada tombol dikurangi untuk layar kecil */
+                font-size: 0.8rem;
+                /* Ukuran teks pada tombol dikurangi untuk layar kecil */
             }
         }
-        .articles-section .row > div {
-    margin-bottom: 30px; /* Memberikan jarak antar kartu artikel secara vertikal */
-}
+
+        .articles-section .row>div {
+            margin-bottom: 30px;
+            /* Memberikan jarak antar kartu artikel secara vertikal */
+        }
 
         .articles-section .article-card {
             border: none;
@@ -150,17 +169,20 @@
 
         /* Mengurangi jarak antara h2 dan paragraf deskripsi */
         .articles-section p {
-            margin-top: -10px; /* Mengurangi jarak antara kalimat */
+            margin-top: -10px;
+            /* Mengurangi jarak antara kalimat */
         }
 
         /* Ukuran gambar yoga untuk lansia */
         .artikel-section .img-fluid {
-            height: 100%; /* Memastikan gambar memenuhi tinggi div-nya */
-            object-fit: cover; /* Mengatur gambar tetap proporsional */
+            height: 100%;
+            /* Memastikan gambar memenuhi tinggi div-nya */
+            object-fit: cover;
+            /* Mengatur gambar tetap proporsional */
         }
-
     </style>
 </head>
+
 <body>
     <!-- Artikel Section -->
     <section class="artikel-section py-5">
@@ -180,8 +202,8 @@
     </section>
 
     <!-- Artikel Terbaru Section -->
-     <!-- Articles Section -->
-     <section class="articles-section">
+    <!-- Articles Section -->
+    <section class="articles-section">
         <div class="container">
             <h3 class="font-weight-bold mb-4">Artikel <span class="text-primary">Terbaru</span></h3>
             <p class="mb-3">Aktivitas apa saja sih yang baru-baru ini dilakukan?</p> <!-- Mengurangi margin bottom dari 5 ke 3 -->
@@ -276,7 +298,7 @@
                 </div>
             </div>
         </div>
-    
+
         <div class="text-right mt-4">
             <a href="#" class="btn btn-primary">Cek Artikel Lainnya <i class="fas fa-arrow-down"></i></a>
         </div>
@@ -287,4 +309,6 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+@endsection
+
 </html>

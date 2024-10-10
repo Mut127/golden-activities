@@ -16,6 +16,9 @@ Route::get('/sesi/register', [SessionController::class, 'register']);
 Route::post('/sesi/create', [SessionController::class, 'create']);
 
 
+Route::get('/aktivitas', function () {
+    return view('page.aktivitas');
+});
 Route::get('/profile', function () {
     return view('page.profile');
 });
@@ -25,14 +28,12 @@ Route::get('/reward', function () {
 Route::get('/todolist', function () {
     return view('page.todolist');
 });
+Route::get('/artikel', function () {
+    return view('page.artikel');
+});
 Route::get('/detailartikel', function () {
     return view('page.detailartikel');
 });
 Route::middleware(['auth'])->group(function () {
     Route::post('/logout', [SessionController::class, 'logout'])->name('logout');
-    
-
-    Route::view('/aktivitas', 'page.aktivitas'); // Menggunakan path 'page.aktivitas'
-
-    
 });

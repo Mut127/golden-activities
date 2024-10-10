@@ -1,13 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+@extends('layouts.app')
+
+@section('title', 'Aktivitas')
+
+@section('content')
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Golden Activities - Aktivitas</title>
-    
+
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    
+
     <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
@@ -139,7 +145,7 @@
             }
         }
 
-        .activities-section .row > div {
+        .activities-section .row>div {
             margin-bottom: 30px;
         }
 
@@ -259,6 +265,7 @@
         }
     </style>
 </head>
+
 <body>
     <!-- Aktivitas Section -->
     <section class="aktivitas-section">
@@ -306,11 +313,11 @@
             <p class="mb-2">Tunggu apa lagi? segera daftar dan dapatkan tiketnya!</p>
             <div class="dropdown">
                 <button class="btn btn-warning dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Jenis Aktivitas
+                    Jenis Aktivitas
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <a class="dropdown-item" href="#">Online</a>
-                  <a class="dropdown-item" href="#">Offline</a>
+                    <a class="dropdown-item" href="#">Online</a>
+                    <a class="dropdown-item" href="#">Offline</a>
                 </div>
             </div>
             <div class="row">
@@ -342,4 +349,6 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+@endsection
+
 </html>
