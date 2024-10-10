@@ -29,7 +29,6 @@
             width: 100%;
             height: 70px;
             margin-top: 20px;
-            /* Memberikan jarak di atas navbar */
         }
 
         /* Logo */
@@ -73,47 +72,42 @@
         .navbar-user {
             position: relative;
             margin-right: 100px;
-            /* Mengurangi margin kanan agar profil lebih ke kiri */
         }
 
         .navbar-user img {
             width: 50px;
-            /* Ukuran gambar pengguna */
             height: 50px;
             border-radius: 50%;
-            /* Membuat gambar menjadi bulat */
             cursor: pointer;
         }
-
+        .navbar-menu li a.active {
+    color: #6e5fe2; /* Warna ungu */
+    font-weight: bold; /* Teks menjadi tebal */
+}
         /* Dropdown Menu */
-        .dropdown-menu {
+        .navbar-user .dropdown-menu {
             display: none;
             position: absolute;
-            left: -120px;
-            /* Geser dropdown ke kiri dengan posisi yang lebih negatif */
-            top: 0px;
-            /* Supaya dropdown sejajar dengan gambar profil */
+            left: 0;
+            top: 50px;
             background-color: #fff;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             border-radius: 5px;
             overflow: hidden;
             z-index: 1000;
             width: 120px;
-            /* Lebar dropdown menu */
         }
 
-        .dropdown-menu a {
+        .navbar-user .dropdown-menu a {
             display: block;
             padding: 10px 15px;
-            /* Mengecilkan padding */
             color: #333;
             text-decoration: none;
             font-weight: 500;
             font-size: 0.85rem;
-            /* Ukuran font yang lebih kecil */
         }
 
-        .dropdown-menu a:hover {
+        .navbar-user .dropdown-menu a:hover {
             background-color: #f0f0f0;
         }
 
@@ -127,6 +121,7 @@
 
 <body>
 
+    <!-- Navbar -->
     <!-- Navbar -->
     <nav class="navbar">
         <div class="navbar-logo">
@@ -142,16 +137,30 @@
         <div class="navbar-user" id="navbarUser">
             <img src="{{ asset('images/person2.jpg') }}" alt="Profil Pengguna"> <!-- Ganti ikon profil dengan gambar pengguna -->
             <div class="dropdown-menu">
-                <a href="#">Edit Profil</a>
+                <a href="{{ route('profile') }}">Edit Profil</a>
                 <a href="#">Logout</a>
             </div>
         </div>
     </nav>
-
     <!-- JavaScript untuk Dropdown -->
     <script>
-        document.getElementById('navbarUser').addEventListener('click', function() {
+        // Menampilkan dropdown saat pengguna mengklik profil
+        document.getElementById('navbarUser').addEventListener('click', function (event) {
             this.classList.toggle('active');
+            event.stopPropagation(); // Mencegah event click diteruskan ke document
+        });
+
+        // Menutup dropdown saat pengguna mengklik di luar dropdown
+        document.addEventListener('click', function (event) {
+            var dropdown = document.querySelector('.navbar-user');
+            if (dropdown.classList.contains('active')) {
+                dropdown.classList.remove('active');
+            }
+        });
+
+        // Mencegah penutupan dropdown saat mengklik dalam menu dropdown
+        document.querySelector('.dropdown-menu').addEventListener('click', function (event) {
+            event.stopPropagation();
         });
     </script>
 

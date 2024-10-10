@@ -1,0 +1,117 @@
+/* Konten Daftar Aktivitas */
+/* Mengatur font Poppins untuk seluruh halaman */
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Divider/girs pemisah dengan warna hitam */
+.divider {
+    width: 2px; /* Lebar garis pemisah */
+    background-color: #000; /* Warna hitam untuk garis pemisah */
+    height: 40px; /* Tinggi garis pemisah */
+    margin: 0 15px; /* Jarak horizontal */
+}
+
+.todo-container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+}
+
+.todo-container h2 {
+    text-align: left; /* Rata kiri */
+    font-size: 36px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px; /* Jarak antara judul dan kalimat penjelas */
+}
+
+.todo-subtitle {
+    text-align: left; /* Rata kiri */
+    font-size: 16px;
+    color: #777;
+    margin-bottom: 20px; /* Jarak antara kalimat penjelas dan konten */
+}
+
+.todo-month {
+    margin-bottom: 20px;
+}
+
+.todo-month h3 {
+    font-size: 28px;
+    margin: 10px 0;
+    color: #7B1FA2; /* Warna ungu */
+}
+
+.todo-item {
+    display: flex;
+    align-items: center; /* Vertikal center untuk checkbox dan konten */
+    background-color: #ffffff; /* Latar belakang putih */
+    border: 5px solid #000;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 10px;
+}
+
+/* Memperbesar ukuran checkbox */
+.todo-checkbox {
+    margin-right: 15px; /* Jarak antara checkbox dan konten */
+    transform: scale(1.5); /* Skala untuk memperbesar ukuran checkbox */
+    -webkit-transform: scale(1.5); /* Untuk browser berbasis WebKit seperti Safari */
+    -moz-transform: scale(1.5); /* Untuk Firefox */
+    -ms-transform: scale(1.5); /* Untuk IE */
+    -o-transform: scale(1.5); /* Untuk Opera */
+    transform-origin: left center; /* Menyelaraskan transformasi dari kiri */
+}
+
+.todo-content {
+    display: flex;
+    flex-direction: column; /* Kolom untuk header dan detail */
+    flex-grow: 1; /* Mengisi sisa ruang */
+}
+
+.todo-header {
+    display: flex;
+    align-items: center; /* Pusatkan secara vertikal */
+    justify-content: flex-start; /* Rata kiri */
+    width: 100%; /* Mengisi lebar penuh */
+}
+
+.todo-date {
+    text-align: center; /* Rata tengah untuk hari dan tanggal */
+    margin-right: 15px; /* Jarak antara tanggal dan garis vertikal */
+}
+
+.todo-day {
+    font-size: 14px; /* Ukuran hari */
+    font-weight: bold; /* Bold untuk hari */
+}
+
+.todo-date-number {
+    font-size: 24px; /* Ukuran tanggal */
+    font-weight: bold; /* Bold untuk tanggal */
+    margin-top: 0; /* Tidak ada jarak di atas */
+}
+
+
+.todo-details {
+    display: flex;
+    flex-direction: column; /* Waktu dan lokasi dalam kolom vertikal */
+    margin-right: 20px; /* Jarak antara details dan nama kegiatan */
+}
+
+.todo-time, .todo-location {
+    font-size: 14px;
+    color: #000; /* Warna abu-abu untuk teks */
+}
+
+.todo-time i, .todo-location i {
+    color: #6e5fe2; /* Warna ikon */
+}
+
+.todo-title {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    margin-left: 20px; /* Jarak dengan garis pemisah */
+}

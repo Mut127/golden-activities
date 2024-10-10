@@ -1,9 +1,23 @@
+<!DOCTYPE html>
+<html lang="id">
 @extends('layouts.app')
-
-@section('title', 'Reward')
-
 @section('content')
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Golden Activities</title>
+    <!-- Link Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Link Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Link Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="{{ asset('css/todolist.css') }}" rel="stylesheet">
+    
+</head>
+
+<body>
 <!-- Konten To Do List -->
 <div class="todo-container">
     <h2>Daftar Aktivitas</h2>
@@ -16,7 +30,7 @@
             <div class="todo-content">
                 <div class="todo-header">
                     <div class="todo-date">
-                        <span class="todo-day">Rabu</span> <!-- Hari -->
+                        <span class="todo-day">Rabu,</span> <!-- Hari -->
                         <span class="todo-date-number">06</span> <!-- Tanggal -->
                     </div>
                     <div class="divider"></div> <!-- Garis pemisah -->
@@ -35,7 +49,7 @@
             <div class="todo-content">
                 <div class="todo-header">
                     <div class="todo-date">
-                        <span class="todo-day">Kamis</span>
+                        <span class="todo-day">Kamis,</span>
                         <span class="todo-date-number">07</span>
                     </div>
                     <div class="divider"></div>
@@ -54,7 +68,7 @@
             <div class="todo-content">
                 <div class="todo-header">
                     <div class="todo-date">
-                        <span class="todo-day">Sabtu</span>
+                        <span class="todo-day">Sabtu,</span>
                         <span class="todo-date-number">09</span>
                     </div>
                     <div class="divider"></div>
@@ -70,4 +84,6 @@
 
     </div>
 </div>
+</body>
 @endsection
+</html>

@@ -72,7 +72,6 @@
         font-size: 1.2rem; /* Memperkecil ukuran font heading */
         font-weight: bold;
         color: #333;
-        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
     }
 
     .footer-info p {

@@ -1,0 +1,105 @@
+/* Profile Section */
+body {
+    font-family: 'Poppins', sans-serif;
+}
+.profile-title {
+    text-align: left; /* Rata kiri */
+    font-size: 36px; /* Ukuran sama dengan Daftar Aktivitas */
+    font-weight: bold; /* Tebal */
+    color: #333; /* Warna yang sama */
+    margin-bottom: 20px; /* Jarak antara judul dan konten */
+}
+
+.profile-container {
+    max-width: 900px; /* Mempersempit lebar kontainer */
+    margin: auto;
+    padding: 20px;
+}
+
+.profile-content {
+    display: flex; /* Mengatur elemen di dalam konten menjadi fleksibel */
+    align-items: flex-start; /* Mengatur agar semua elemen rata atas */
+}
+
+.profile-image {
+    margin-right: 20px; /* Jarak antara gambar dan form */
+    text-align: center; /* Rata tengah untuk gambar dan tombol */
+}
+
+.profile-form {
+    flex-grow: 1;
+    margin-left: 50px;
+}
+
+.bold-text {
+    font-weight: bold;
+}
+.back-btn {
+    display: flex;
+    align-items: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+.back-btn i {
+    margin-right: 10px;
+}
+.back-btn:hover {
+    text-decoration: none;
+    color: #6e5fe2;
+}
+
+.purple-input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 15px;
+    border: 2px solid #7B1FA2; /* Warna ungu */
+    border-radius: 5px;
+}
+
+/* Tombol Edit Profil */
+.btn-edit-profile {
+    background-color: #FFC107; /* Kuning */
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+/* Tombol Ubah Foto dan Hapus Foto diatur berdampingan */
+.profile-buttons {
+    display: flex;
+    gap: 10px; /* Jarak antara kedua tombol */
+    margin-top: 10px;
+}
+
+.btn-upload { 
+    padding: 10px 20px;
+    background-color: #d7b8f0; /* Warna dasar */
+    color: rgb(0, 0, 0);
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    justify-content: center;
+}
+.btn-delete {
+    padding: 10px 20px;
+    background-color: #6C757D; /* Warna dasar */
+    color: rgb(0, 0, 0);
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    justify-content: center;
+}
+
+.btn-upload:hover {
+    background-color: #e3d0f3; /* Warna saat hover */
+} 
+
+.btn-delete:hover {
+    background-color: #5A6268; /* Warna saat hover */
+}
+
+.btn-edit-profile:hover {
+    background-color: #fdd459; /* Warna saat hover */
+}

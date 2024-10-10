@@ -1,0 +1,62 @@
+/* Konten Reward */
+body {
+    font-family: 'Poppins', sans-serif;
+}
+.reward-container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+}
+
+.reward-container h1 {
+    text-align: left; /* Rata kiri */
+    font-size: 36px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px; /* Jarak antara judul dan kalimat penjelas */
+}
+
+.reward-subtitle {
+    text-align: left; /* Rata kiri */
+    font-size: 16px;
+    color: #777;
+    margin-bottom: 20px; /* Jarak antara kalimat penjelas dan konten */
+}
+
+.reward-box {
+    background-color: #E1BEE7; /* Warna ungu muda */
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 20px; /* Jarak antara kotak dan teks selamat */
+}
+
+.reward-text {
+    font-size: 16px; /* Ukuran teks dalam kotak */
+    color: #333; /* Warna teks */
+}
+
+.reward-congratulations {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 15px; /* Jarak antara teks selamat dan tombol */
+}
+
+.btn-redeem {
+    background-color: #FFC107; /* Warna kuning */
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+    display: flex;
+    align-items: center; /* Pusatkan ikon dan teks */
+    transition: background-color 0.3s ease; /* Transisi untuk perubahan warna */
+}
+
+.btn-redeem:hover {
+    background-color: #FFB300; /* Warna kuning gelap saat hover */
+}
+
+.btn-redeem i {
+    margin-right: 5px; /* Jarak antara ikon dan teks */
+}

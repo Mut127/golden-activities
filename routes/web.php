@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\SessionController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -34,6 +35,18 @@ Route::get('/artikel', function () {
 Route::get('/detailartikel', function () {
     return view('page.detailartikel');
 });
+Route::get('/daftar', function () {
+    return view('page.daftar'); // Sesuaikan dengan lokasi file Anda
+})->name('daftar');
+Route::get('/artikel/{id}', function ($id) {
+    return view('page.detailartikel'); // Ubah sesuai dengan lokasi view jika berada di subfolder, misal 'pages.detailartikel'
+})->name('detailartikel');
+
+
+Route::get('/profile', [ProfileController::class, 'show'])->name('profile');
+
+
+
 Route::middleware(['auth'])->group(function () {
     Route::post('/logout', [SessionController::class, 'logout'])->name('logout');
 });
