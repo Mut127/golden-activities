@@ -35,12 +35,7 @@ Route::get('/artikel', function () {
 Route::get('/detailartikel', function () {
     return view('page.detailartikel');
 });
-Route::get('/admin-aktivitas', function () {
-    return view('page.admin-aktivitas');
-});
-Route::get('/admin-dashboard', function () {
-    return view('page.admin-dashboard');
-});
+
 Route::get('/daftar', function () {
     return view('page.daftar'); // Sesuaikan dengan lokasi file Anda
 })->name('daftar');
@@ -48,11 +43,28 @@ Route::get('/artikel/{id}', function ($id) {
     return view('page.detailartikel'); // Ubah sesuai dengan lokasi view jika berada di subfolder, misal 'pages.detailartikel'
 })->name('detailartikel');
 
-
 Route::get('/profile', [ProfileController::class, 'show'])->name('profile');
-
-
 
 Route::middleware(['auth'])->group(function () {
     Route::post('/logout', [SessionController::class, 'logout'])->name('logout');
+});
+
+//ADMIN
+Route::get('/admin-aktivitas', function () {
+    return view('page.admin-aktivitas');
+});
+Route::get('/admin-dashboard', function () {
+    return view('page.admin-dashboard');
+});
+Route::get('/admin-artikel', function () {
+    return view('page.admin-artikel');
+});
+Route::get('/admin-daftarkegiatan', function () {
+    return view('page.admin-daftarkegiatan');
+});
+Route::get('/admin-pencapaian', function () {
+    return view('page.admin-pencapaian');
+});
+Route::get('/admin-user', function () {
+    return view('page.admin-user');
 });

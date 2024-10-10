@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Event List - BahteraKarsa</title>
+    <title>Content List - BahteraKarsa</title>
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
@@ -38,8 +38,8 @@
         }
 
         .table {
-            width: 100%;
-            max-width: 1200px; /* Set maximum width for the table */
+            width: 150%; /* Increase the width of the table */
+            max-width: none; /* Disable the max-width restriction */
             font-size: 0.9rem; /* Reduce font size */
         }
 
@@ -90,23 +90,15 @@
     <div class="row">
         <!-- Main Content -->
         <div class="col-md-10 content">
-            <h3 class="mb-4">Event List</h3>
+            <h3 class="mb-4">Content List</h3>
             <div class="table-container">
                 <table class="table table-hover">
                     <thead class="thead-light">
                     <tr>
                         <th scope="col">ID</th>
-                        <th scope="col">Judul</th>
-                        <th scope="col">Deskripsi</th>
-                        <th scope="col">Image</th>
-                        <th scope="col">Tgl Pelaksanaan</th>
-                        <th scope="col">Waktu Pelaksanaan</th>
-                        <th scope="col">Alamat</th>
-                        <th scope="col">Kuota</th>
-                        <th scope="col">Kategori</th>
                         <th scope="col">Status</th>
-                        <th scope="col">Alasan Ditolak</th>
                         <th scope="col">User ID</th>
+                        <th scope="col">Aktivitas ID</th>
                         <th scope="col">Created At</th>
                         <th scope="col">Updated At</th>
                         <th scope="col">Action</th>
@@ -115,17 +107,9 @@
                     <tbody>
                     <tr>
                         <td>1</td>
-                        <td>Soedirman Student Summit</td>
-                        <td>Silahkan unduh pengumuman melalui tombol di bawah ini yaaa</td>
-                        <td><img src="path/to/image1.jpg" alt="Image 1" style="width: 50px; height: 50px;"></td>
-                        <td>2024-06-05</td>
-                        <td>09:00 - 12:00</td>
-                        <td>Gedung Soedirman</td>
-                        <td>150</td>
-                        <td>Seminar</td>
                         <td>Approved</td>
-                        <td>-</td>
                         <td>1</td>
+                        <td>101</td>
                         <td>2024-05-01</td>
                         <td>2024-05-10</td>
                         <td>
@@ -137,17 +121,9 @@
                     </tr>
                     <tr>
                         <td>2</td>
-                        <td>Desa Cita</td>
-                        <td>Silahkan unduh pengumuman melalui tombol di bawah ini yaaa</td>
-                        <td><img src="{{ asset('images/person1.jpg') }}" alt="Image 2" style="width: 50px; height: 50px;"></td>
-                        <td>2024-06-15</td>
-                        <td>10:00 - 14:00</td>
-                        <td>Lapangan Desa Cita</td>
-                        <td>200</td>
-                        <td>Pengabdian</td>
-                        <td>Approved</td>
-                        <td>-</td>
+                        <td>Pending</td>
                         <td>2</td>
+                        <td>102</td>
                         <td>2024-05-05</td>
                         <td>2024-05-15</td>
                         <td>
