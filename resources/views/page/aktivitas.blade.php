@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-    @extends('layouts.app')
-    @section('content')
+@extends('layouts.app')
+@section('content')
 
 <head>
     <meta charset="UTF-8">
@@ -63,27 +63,41 @@
             <p class="mb-2">Tunggu apa lagi? segera daftar dan dapatkan tiketnya!</p>
             <div class="dropdown">
                 <button class="btn btn-warning dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Jenis Aktivitas
+                    Jenis Aktivitas
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <a class="dropdown-item" href="#">Online</a>
-                  <a class="dropdown-item" href="#">Offline</a>
+                    <a class="dropdown-item" href="#">Online</a>
+                    <a class="dropdown-item" href="#">Offline</a>
                 </div>
             </div>
+            @if($aktivitas->count() > 0)
             <div class="row">
+                @foreach ($aktivitas as $item)
+                @php
+                $plainContent = strip_tags($item->deskripsi);
+                $limitedContent = Str::limit($plainContent, 100);
+                @endphp
                 <div class="col-md-3">
-                    <div class="activity-card">
-                        <img src="{{ asset('images/aktivitas.png') }}" alt="Aktivitas 1">
-                        <div class="card-body">
-                            <h5 class="card-title">Kerajinan Tangan</h5>
-                            <p class="card-date"><i class="far fa-clock"></i> 09.00 - 11.30</p>
-                            <p class="card-text"><i class="fas fa-map-marker-alt"></i> Caffe Ejji</p>
-                            <a href="{{ route('daftar') }}" class="btn btn-primary">Daftar Sekarang <i class="fas fa-arrow-right"></i></a>
+                    <a href="{{ route('aktivitas.show', $item->id) }}" class="item-aktivitas">
+                        <div class="activity-card">
+                            <img src="{{ asset('storage/' . $item->image_path) }}" class="card-img-top img-fluid uniform-img-size" alt="Aktiivitas Image">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ Str::limit($item->judul, 30) }}</h5>
+                                <p class="card-date"><i class="far fa-clock"></i> {{ \Carbon\Carbon::parse($item->tgl_pelaksanaan)->format('d-m-Y') }}|{{ \Carbon\Carbon::parse($item->waktu_pelaksanaan)->format('H:i') }}</p>
+                                <p class="card-text"><i class="fas fa-map-marker-alt"></i>{{ $item->alamat}}</p>
+                                <a href="{{ route('aktivitas.show', $item->id) }}" class="btn btn-primary">Daftar Sekarang <i class="fas fa-arrow-right"></i></a>
+                            </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
-                <!-- Tambahkan card lainnya di sini -->
+                @endforeach
             </div>
+            @else
+            <div class="text-center my-5">
+                <h2 class="display-2" style="font-weight: bold; color:#9E9E9E">Artikel tidak ditemukan</h2>
+                <p class="lead">Maaf, artikel forum yang Anda cari tidak ditemukan di website ini.</p>
+            </div>
+            @endif
         </div>
     </section>
 
@@ -97,4 +111,5 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 @endsection
+
 </html>

@@ -80,10 +80,14 @@
             border-radius: 50%;
             cursor: pointer;
         }
+
         .navbar-menu li a.active {
-    color: #6e5fe2; /* Warna ungu */
-    font-weight: bold; /* Teks menjadi tebal */
-}
+            color: #6e5fe2;
+            /* Warna ungu */
+            font-weight: bold;
+            /* Teks menjadi tebal */
+        }
+
         /* Dropdown Menu */
         .navbar-user .dropdown-menu {
             display: none;
@@ -133,25 +137,40 @@
             <li><a class="nav-link {{ Request::is('/todolist') ? 'active' : '' }}" href="{{ url('/todolist') }}">Daftar Aktivitas</a></li>
             <li><a class="nav-link {{ Request::is('/reward') ? 'active' : '' }}" href="{{ url('/reward') }}">Pencapaian</a></li>
             <li><a class="nav-link {{ Request::is('/artikel') ? 'active' : '' }}" href="{{ url('/artikel') }}">Artikel</a></li>
+            @guest
+            <li class="nav-item">
+                <a class="nav-link {{ Request::is('login') ? 'active' : '' }}" href="{{ route('login') }}">Masuk</a>
+            </li>
+            @else
         </ul>
         <div class="navbar-user" id="navbarUser">
             <img src="{{ asset('images/person2.jpg') }}" alt="Profil Pengguna"> <!-- Ganti ikon profil dengan gambar pengguna -->
             <div class="dropdown-menu">
+                @if(Auth::user()->usertype == 'admin')
+                <a class="dropdown-item" href="{{ route('page.admin-dashboard')}}">Dashboard</a>
+                @endif
                 <a href="{{ route('profile') }}">Edit Profil</a>
-                <a href="#">Logout</a>
+                <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                    document.getElementById('logout-form').submit();">
+                    Log Out
+                </a>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                    @csrf
+                </form>
             </div>
         </div>
+        @endguest
     </nav>
     <!-- JavaScript untuk Dropdown -->
     <script>
         // Menampilkan dropdown saat pengguna mengklik profil
-        document.getElementById('navbarUser').addEventListener('click', function (event) {
+        document.getElementById('navbarUser').addEventListener('click', function(event) {
             this.classList.toggle('active');
             event.stopPropagation(); // Mencegah event click diteruskan ke document
         });
 
         // Menutup dropdown saat pengguna mengklik di luar dropdown
-        document.addEventListener('click', function (event) {
+        document.addEventListener('click', function(event) {
             var dropdown = document.querySelector('.navbar-user');
             if (dropdown.classList.contains('active')) {
                 dropdown.classList.remove('active');
@@ -159,7 +178,7 @@
         });
 
         // Mencegah penutupan dropdown saat mengklik dalam menu dropdown
-        document.querySelector('.dropdown-menu').addEventListener('click', function (event) {
+        document.querySelector('.dropdown-menu').addEventListener('click', function(event) {
             event.stopPropagation();
         });
     </script>

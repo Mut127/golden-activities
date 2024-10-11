@@ -35,7 +35,7 @@ class SessionController extends Controller
         if (Auth::attempt($infologin)) {
             $user = Auth::user();
             if ($user->usertype === 'admin') {
-                return redirect()->route('admin.dashboard')->with('success', 'Selamat Datang, ' . Auth::user()->name);
+                return redirect()->route('page.admin-dashboard')->with('success', 'Selamat Datang, ' . Auth::user()->name);
             } else {
                 return redirect('/')->with('success', 'Selamat Datang, ' . Auth::user()->name);
             }

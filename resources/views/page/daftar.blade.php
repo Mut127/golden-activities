@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
-    
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,17 +23,19 @@
         </a>
         <!-- Header Section -->
         <h1 class="header-title text-left">Daftar</h1>
-        
+
         <!-- Event Title -->
-        <h2 class="event-title">Klub Buku: Berbagi Cerita, Memperluas Wawasan</h2>
-    
+        <h2 class="event-title">{{$aktivitas->judul}}</h2>
+
         <!-- Event Image -->
         <div class="row mt-4">
             <div class="col-md-12">
-                <img src="{{ asset('images/daftar.jpg') }}" alt="Klub Buku" class="img-fluid event-image">
+                <img src="{{ asset('storage/' . $aktivitas->image_path) }}" alt="{{ $aktivitas->judul }}" class="img-fluid event-image">
+                <p class="image-caption">Foto: {{ $aktivitas->judul }}</p>
+
             </div>
         </div>
-    
+
         <!-- Progress Bar showing 25 participants out of 30, centered -->
         <div class="d-flex justify-content-center">
             <div class="progress">
@@ -41,25 +43,20 @@
             </div>
         </div>
         <p class="participants-text text-right"><i>25 Peserta telah mendaftar</i> </p>
-    
-        
-        <p class="event-description mt-4">Klub buku adalah aktivitas sosial yang menyenangkan sekaligus bermanfaat bagi lansia. Bergabung dalam sebuah klub buku memungkinkan mereka untuk membaca, mendiskusikan ide-ide, dan berinteraksi dengan teman-teman yang memiliki minat serupa. Kegiatan ini tidak hanya memperkaya wawasan intelektual, tetapi juga menjaga otak tetap aktif. Diskusi dalam kelompok memberikan kesempatan bagi lansia untuk berbicara dan mendengarkan, yang sangat penting untuk menjaga kemampuan kognitif.</p>
-        
-        <h4>Manfaat:</h4>
-        <ul class="event-benefits">
-            <li>Meningkatkan kemampuan berpikir kritis dan ingatan.</li>
-            <li>Membangun hubungan baru dan mengurangi rasa kesepian.</li>
-            <li>Menambah pengetahuan melalui berbagai genre buku yang dibaca.</li>
-        </ul>
-    
+
+
+        <div class="aktivitas-content">
+            {!! $aktivitas->deskripsi !!}
+        </div>
+
         <!-- Event Information Section -->
         <div class="event-info">
-            <p><i class="far fa-calendar-alt"></i> 16 Oktober 2024</p>
-            <p><i class="far fa-clock"></i> 10.00 s.d 15.00</p>
-            <p><i class="fas fa-map-marker-alt"></i> Caffe Bento, Purwokerto Timur, Jawa Tengah</p>
-            <p><i class="fas fa-users"></i> 30 Peserta</p>
+            <p><i class="far fa-calendar-alt"></i> {{ \Carbon\Carbon::parse($aktivitas->tgl_pelaksanaan)->format('d-m-Y') }}4</p>
+            <p><i class="far fa-clock"></i> {{ \Carbon\Carbon::parse($aktivitas->waktu_pelaksanaan)->format('H:i') }}</p>
+            <p><i class="fas fa-map-marker-alt"></i>{{ $aktivitas->alamat}}</p>
+            <p><i class="fas fa-users"></i> {{ $aktivitas->kuota}}</p>
         </div>
-    
+
         <!-- Registration Form Section -->
         <div class="form-section">
             <h4>Data Diri :</h4>
@@ -99,4 +96,5 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
+
 </html>

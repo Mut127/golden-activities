@@ -43,56 +43,35 @@
         <div class="container">
             <h3 class="font-weight-bold mb-4">Artikel <span class="text-primary">Terbaru</span></h3>
             <p class="mb-3">Aktivitas apa saja sih yang baru-baru ini dilakukan?</p>
+            @if($artikels->count() > 0)
             <div class="row">
+                @foreach ($artikels as $artikel)
+                @php
+                $plainContent = strip_tags($artikel->content);
+                $limitedContent = Str::limit($plainContent, 100);
+                @endphp
                 <div class="col-md-3">
-                    <div class="article-card">
-                        <img src="{{ asset('images/artikel.jpg') }}" alt="Artikel 1">
-                        <div class="card-body">
-                            <p class="card-date">13 December 2023</p>
-                            <h5 class="card-title">Aktivitas Pertemuan Kopi & Cerita</h5>
-                            <p class="card-text">By Admin SmkNs</p>
-                            <div class="read-more">
-                                <a href="{{ route('detailartikel', ['id' => 1]) }}">Baca Selengkapnya</a>
+                    <a href="{{ route('artikels.show', $artikel->id) }}" class="item-artikel">
+                        <div class="article-card">
+                            <img src="{{ asset('storage/' . $artikel->image_path) }}" class="card-img-top img-fluid uniform-img-size" alt="Article Image">
+                            <div class="card-body">
+                                <p class="card-date">{{ $artikel->created_at->format('d-m-Y') }}</p>
+                                <h5 class="card-title">{{ Str::limit($artikel->judul, 30) }}</h5>
+                                <p class="card-text"> {{ $artikel->user->name }}</p>
+                                <a href="{{ route('artikels.show', $artikel->id) }}" class="btn-more">Baca Selengkapnya</a>
                             </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
-                <div class="col-md-3">
-                    <div class="article-card">
-                        <img src="{{ asset('images/artikel.jpg') }}" alt="Artikel 2">
-                        <div class="card-body">
-                            <p class="card-date">13 December 2023</p>
-                            <h5 class="card-title">Aktivitas Pertemuan Kopi & Cerita</h5>
-                            <p class="card-text">By Admin SmkNs</p>
-                            <div class="read-more"><a href="#">Baca Selengkapnya</a></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="article-card">
-                        <img src="{{ asset('images/artikel.jpg') }}" alt="Artikel 3">
-                        <div class="card-body">
-                            <p class="card-date">13 December 2023</p>
-                            <h5 class="card-title">Aktivitas Pertemuan Kopi & Cerita</h5>
-                            <p class="card-text">By Admin SmkNs</p>
-                            <div class="read-more"><a href="#">Baca Selengkapnya</a></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="article-card">
-                        <img src="{{ asset('images/artikel.jpg') }}" alt="Artikel 4">
-                        <div class="card-body">
-                            <p class="card-date">13 December 2023</p>
-                            <h5 class="card-title">Aktivitas Pertemuan Kopi & Cerita</h5>
-                            <p class="card-text">By Admin SmkNs</p>
-                            <div class="read-more"><a href="#">Baca Selengkapnya</a></div>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
             </div>
+            @else
+            <div class="text-center my-5">
+                <h2 class="display-2" style="font-weight: bold; color:#9E9E9E">Artikel tidak ditemukan</h2>
+                <p class="lead">Maaf, artikel forum yang Anda cari tidak ditemukan di website ini.</p>
+            </div>
+            @endif
         </div>
-
         <div class="text-right mt-4">
             <a href="#" class="btn btn-primary">Cek Artikel Lainnya <i class="fas fa-arrow-down"></i></a>
         </div>

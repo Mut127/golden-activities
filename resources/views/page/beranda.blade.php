@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="id">
-    @extends('layouts.app')
-    @section('content')
-    
+@extends('layouts.app')
+@section('content')
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -158,53 +158,41 @@
         <div class="container">
             <h2>Artikel <span style="color: #6c5ce7;"> <br> Golden Activities</span></h2>
             <p style="text-align: center; padding-bottom: 20px;">Aktivitas apa saja sih yang sudah pernah dilakukan?</p>
-            <div class="row">
+            @if($latestArtikels->count() > 0)
+            <div class="row ustify-content-start">
+                @foreach ($latestArtikels as $artikel)
+                @php
+                $plainContent = strip_tags($artikel->content);
+                $limitedContent = Str::limit($plainContent, 100);
+                @endphp
                 <div class="col-md-3">
                     <div class="article-card">
-                        <img src="{{ asset('images/artikel.jpg') }}" alt="Artikel 1">
+
+                        <img src="{{ asset('storage/' . $artikel->image_path) }}" class="card-img-top img-fluid uniform-img-size" alt="Article">
+
                         <div class="card-body">
-                            <p class="card-date">13 December 2023</p>
-                            <h5 class="card-title">Aktivitas Pertemuan Kopi & Cerita</h5>
-                            <p class="card-text">By Admin SmkNs</p>
-                            <div class="read-more"><a href="#">Baca Selengkapnya</a></div>
+                            <p class="card-date">{{ $artikel->created_at->format('d-m-Y') }}</p>
+                            <h5 class="card-title">{{ Str::limit($artikel->judul, 30) }}</h5>
+                            <p class="card-text"> {{ $artikel->user->name }}</p>
+                            <a href="{{ route('artikels.show', $artikel->id) }}" class="btn-more">Baca Selengkapnya</a>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3">
-                    <div class="article-card">
-                        <img src="{{ asset('images/artikel.jpg') }}" alt="Artikel 2">
-                        <div class="card-body">
-                            <p class="card-date">13 December 2023</p>
-                            <h5 class="card-title">Aktivitas Pertemuan Kopi & Cerita</h5>
-                            <p class="card-text">By Admin SmkNs</p>
-                            <div class="read-more"><a href="#">Baca Selengkapnya</a></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="article-card">
-                        <img src="{{ asset('images/artikel.jpg') }}" alt="Artikel 3">
-                        <div class="card-body">
-                            <p class="card-date">13 December 2023</p>
-                            <h5 class="card-title">Aktivitas Pertemuan Kopi & Cerita</h5>
-                            <p class="card-text">By Admin SmkNs</p>
-                            <div class="read-more"><a href="#">Baca Selengkapnya</a></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="article-card">
-                        <img src="{{ asset('images/artikel.jpg') }}" alt="Artikel 4">
-                        <div class="card-body">
-                            <p class="card-date">13 December 2023</p>
-                            <h5 class="card-title">Aktivitas Pertemuan Kopi & Cerita</h5>
-                            <p class="card-text">By Admin SmkNs</p>
-                            <div class="read-more"><a href="#">Baca Selengkapnya</a></div>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
             </div>
-        </div>
+            @else
+            <div class="text-center my-5">
+                <h2 class="display-2" style="font-weight: bold; color:#9E9E9E">Tidak ada artikel</h2>
+                <p class="lead">Belum ada artikel yang tersedia saat ini.</p>
+            </div>
+            @endif
+            @if($latestArtikels->count() > 0)
+            <div class="text-center mt-3">
+                <a href="{{ url('/artikel') }}" class="tittleAD">Lihat Artikel Lainnya ></a>
+            </div>
+            @else
+            <div class="text-center mt-3"></div>
+            @endif
     </section>
 
     <!-- JavaScript untuk Font Awesome -->
@@ -216,4 +204,5 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 @endsection
+
 </html>
