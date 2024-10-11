@@ -113,6 +113,6 @@ Route::get('/admin-daftarkegiatan', function () {
 Route::get('/admin-pencapaian', function () {
     return view('page.admin-pencapaian');
 });
-Route::get('/admin-user', function () {
-    return view('page.admin-user');
-});
+// Route::get('/admin-user', function () {
+//     return view('page.admin-user');
+// });

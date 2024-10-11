@@ -126,12 +126,9 @@
                                 <th scope="col">ID</th>
                                 <th scope="col">Name</th>
                                 <th scope="col">Email</th>
-                                <th scope="col">Email Verified At</th>
                                 <th scope="col">Number</th>
                                 <th scope="col">Profile Image</th>
                                 <th scope="col">User Type</th>
-                                <th scope="col">Created At</th>
-                                <th scope="col">Updated At</th>
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>
@@ -141,14 +138,11 @@
                                 <td>{{ $user->id }}</td>
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->email }}</td>
-                                <td>{{ $user->email_verified_at }}</td>
                                 <td>{{ $user->number }}</td>
                                 <td><img src="{{ Storage::url($user->profile_image) }}" alt="Profile Image" width="100"></td>
                                 <td>{{ $user->usertype }}</td>
-                                <td>{{ $user->created_at }}</td>
-                                <td>{{ $user->updated_at }}</td>
                                 <td>
-                                    <a href="{{ route('user.edit', $user->id) }}">Edit</a>
+                                    <a href="{{ route('user.edit', $user->id) }}" class="btn btn-primary btn-sm">Edit</a>
                                     <form action="{{ route('user.destroy', $user->id) }}" method="POST" style="display: inline;">
                                         @csrf
                                         @method('DELETE')

@@ -23,8 +23,8 @@ class UserController extends Controller
 
     public function show($id)
     {
-        $user = User::findOrFail($id);
-        return view('page.detailuser', compact('user'));
+        $users = User::findOrFail($id);
+        return view('page.detailuser', compact('users'));
     }
 
     public function store(Request $request)
@@ -99,7 +99,7 @@ class UserController extends Controller
         if ($user->profile_image) {
             Storage::delete('public/' . $user->profile_image);
         }
-        
+
         $user->delete();
         return redirect()->route('users.index')->with('success', 'User deleted successfully.');
     }

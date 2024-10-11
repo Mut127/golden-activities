@@ -42,10 +42,10 @@
         }
 
         .sidebar .nav-link.active {
-    background-color: #704FE6;
-    color: white;
-    border-radius: 8px;
-}
+            background-color: #704FE6;
+            color: white;
+            border-radius: 8px;
+        }
 
         .sidebar .nav-link i {
             margin-right: 10px;
@@ -111,7 +111,10 @@
                         <a class="nav-link {{ Request::is('admin-user') ? 'active' : '' }}" href="{{ url('/admin-user') }}">
                             <i class="fas fa-user"></i> User
                         </a>
-                        </nav>
+                        <a class="nav-link {{ Request::is('/') ? 'active' : '' }}" href="{{ url('/') }}">
+                            <i class="fas fa-home"></i> Beranda
+                        </a>
+                    </nav>
                 </div>
                 <!-- Logout Section -->
                 <div class="logout-section">
