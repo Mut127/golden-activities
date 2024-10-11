@@ -21,8 +21,6 @@ return new class extends Migration
             $table->text('alamat');
             $table->unsignedInteger('kuota');
             $table->enum('kategori', ['online', 'offline']);
-            $table->enum('status', ['menunggu', 'diterima', 'ditolak'])->default('menunggu');
-            $table->string('alasan_ditolak')->nullable();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });

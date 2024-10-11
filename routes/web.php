@@ -22,7 +22,7 @@ Route::get('/sesi', [SessionController::class, 'login'])->name('login');
 Route::post('/sesi/loggin', [SessionController::class, 'loggin']);
 
 Route::get('/sesi/register', [SessionController::class, 'register']);
-Route::post('/sesi/create', [SessionController::class, 'create']);
+Route::post('/sesi/create', [SessionController::class, 'create'])->name('sesi.create');
 
 
 // Route::get('/aktivitas', function () {
