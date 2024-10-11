@@ -42,11 +42,10 @@
         }
 
         .sidebar .nav-link.active {
-            background-color: #704FE6;
-            /* Active state color */
-            color: white;
-            border-radius: 8px;
-        }
+    background-color: #704FE6;
+    color: white;
+    border-radius: 8px;
+}
 
         .sidebar .nav-link i {
             margin-right: 10px;
@@ -94,13 +93,25 @@
                         <img src="{{ asset('images/logoGA.png') }}" alt="Logo" class="img-fluid mb-4">
                     </div>
                     <nav class="nav flex-column">
-                        <a class="nav-link active {{ Request::is('/admin-dashboard') ? 'active' : '' }}" href="{{ url('/admin-dashboard') }}"><i class="fas fa-home"></i> Dashboard</a>
-                        <a class="nav-link{{ Request::is('admin-aktivitas') ? 'active' : '' }}" href="{{ url('/admin-aktivitas') }}"><i class="fas fa-tasks"></i> Aktivitas</a>
-                        <a class="nav-link{{ Request::is('artikels') ? 'active' : '' }}" href="{{ url('/admin-artikel') }}"><i class="fas fa-newspaper"></i> Artikel</a>
-                        <a class="nav-link{{ Request::is('/admin-daftarkegiatan') ? 'active' : '' }}" href="{{ url('/admin-daftarkegiatan') }}"><i class="fas fa-list-alt"></i> Daftar Kegiatan</a>
-                        <a class="nav-link{{ Request::is('/admin-pencapaian') ? 'active' : '' }}" href="{{ url('/admin-pencapaian') }}"><i class="fas fa-trophy"></i> Pencapaian</a>
-                        <a class="nav-link{{ Request::is('/admin-user') ? 'active' : '' }}" href="{{ url('/admin-user') }}"><i class="fas fa-user"></i> User</a>
-                    </nav>
+                        <a class="nav-link {{ Request::is('admin-dashboard') ? 'active' : '' }}" href="{{ url('/admin-dashboard') }}">
+                            <i class="fas fa-home"></i> Dashboard
+                        </a>
+                        <a class="nav-link {{ Request::is('admin-aktivitas') ? 'active' : '' }}" href="{{ url('/admin-aktivitas') }}">
+                            <i class="fas fa-tasks"></i> Aktivitas
+                        </a>
+                        <a class="nav-link {{ Request::is('admin-artikel') ? 'active' : '' }}" href="{{ url('/admin-artikel') }}">
+                            <i class="fas fa-newspaper"></i> Artikel
+                        </a>
+                        <a class="nav-link {{ Request::is('admin-daftarkegiatan') ? 'active' : '' }}" href="{{ url('/admin-daftarkegiatan') }}">
+                            <i class="fas fa-list-alt"></i> Daftar Kegiatan
+                        </a>
+                        <a class="nav-link {{ Request::is('admin-pencapaian') ? 'active' : '' }}" href="{{ url('/admin-pencapaian') }}">
+                            <i class="fas fa-trophy"></i> Pencapaian
+                        </a>
+                        <a class="nav-link {{ Request::is('admin-user') ? 'active' : '' }}" href="{{ url('/admin-user') }}">
+                            <i class="fas fa-user"></i> User
+                        </a>
+                        </nav>
                 </div>
                 <!-- Logout Section -->
                 <div class="logout-section">

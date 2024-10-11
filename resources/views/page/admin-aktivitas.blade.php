@@ -91,6 +91,19 @@
                 width: 100%;
             }
         }
+        .btn-tambah-aktivitas {
+        background-color: #FFD25D;
+        color: black;
+        border: none;
+        margin-bottom: 20px;
+        border-radius: 8px;
+    }
+
+    .btn-tambah-aktivitas:hover {
+        background-color: #e6b84b;
+        /* Sedikit lebih gelap saat dihover */
+        color: black;
+    }
     </style>
 </head>
 
@@ -101,7 +114,7 @@
             <!-- Main Content -->
             <div class="col-md-10 content">
                 <h3 class="mb-4">Event List</h3>
-                <button type="button" class="btn create-btn" data-toggle="modal" data-target="#createAktivitasModal">
+                <button type="button" class="btn create-btn btn-tambah-aktivitas" data-toggle="modal" data-target="#createAktivitasModal">
                     <i class="fa-solid fa-plus"></i> Tambah Aktivitas
                 </button>
                 <div class="table-container">
@@ -117,8 +130,6 @@
                                 <th scope="col">Alamat</th>
                                 <th scope="col">Kuota</th>
                                 <th scope="col">Kategori</th>
-                                <!-- <th scope="col">Status</th>
-                                <th scope="col">Alasan Ditolak</th> -->
                                 <th scope="col">User ID</th>
                                 <th scope="col">Action</th>
                             </tr>
@@ -129,12 +140,18 @@
                                 <td>{{ $act->id }}</td>
                                 <td>{!! $act->judul !!}</td>
                                 <td>{{ Str::limit($act->deskripsi, 20)}}</td>
-                                <td> <img src="{{ Storage::url($act->image_path) }}" style="width: 100px; height: 100px;"></td>
+                                <td>
+                                    @if($act->image_path)
+                                        <img src="{{ Storage::url($act->image_path) }}" style="width: 100px; height: 100px;">
+                                    @else
+                                        <p>No image</p>
+                                    @endif
+                                </td>
                                 <td>{{ $act->tgl_pelaksanaan }}</td>
                                 <td>{{ $act->waktu_pelaksanaan }}</td>
                                 <td>{!! $act->alamat !!}</td>
                                 <td>{{ $act->kuota }}</td>
-                                <td>{{ $act->kategori}}</td>
+                                <td>{{ $act->kategori }}</td>
                                 <td>{{ $act->user->name }}</td>
                                 <td>
                                     <div class="action-icons">
@@ -142,7 +159,7 @@
                                         <form action="{{ route('aktivitas.destroy', $act->id) }}" method="POST" class="d-inline">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus katalog ini?')"><i class="fas fa-trash-alt"></i></button>
+                                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus aktivitas ini?')"><i class="fas fa-trash-alt"></i></button>
                                         </form>
                                     </div>
                                 </td>
@@ -154,6 +171,7 @@
             </div>
         </div>
     </div>
+    
     <div class="modal fade" id="createAktivitasModal" tabindex="-1" aria-labelledby="createAktivitasModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
@@ -219,11 +237,8 @@
                                 <option value="online" {{ old('kategori') == 'online' ? 'selected' : '' }}>Online</option>
                                 <option value="offline" {{ old('kategori') == 'offline' ? 'selected' : '' }}>Offline</option>
                             </select>
-                            @if ($errors->has('status'))
-                            <div class="text-danger">{{ $errors->first('status') }}</div>
-                            @endif
                         </div>
-
+    
                         <button type="submit" class="btn btn-primary">Buat</button>
                         <button type="button" id="cancel-button" class="btn btn-danger" data-dismiss="modal">Batal</button>
                     </form>
@@ -231,6 +246,7 @@
             </div>
         </div>
     </div>
+    
 
 
     <!-- Bootstrap JS and dependencies -->

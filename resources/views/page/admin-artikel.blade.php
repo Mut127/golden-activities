@@ -92,6 +92,19 @@
                 width: 100%;
             }
         }
+        .btn-tambah-aktivitas {
+        background-color: #FFD25D;
+        color: black;
+        border: none;
+        margin-bottom: 20px;
+        border-radius: 8px;
+    }
+
+    .btn-tambah-aktivitas:hover {
+        background-color: #e6b84b;
+        /* Sedikit lebih gelap saat dihover */
+        color: black;
+    }
     </style>
 </head>
 
@@ -102,9 +115,9 @@
             <!-- Main Content -->
             <div class="col-md-10 content">
                 <h3 class="mb-4">Content List</h3>
-                <button type="button" class="btn create-btn" data-toggle="modal" data-target="#createArtikelModal">
+                <button type="button" class="btn create-btn btn-tambah-aktivitas" data-toggle="modal" data-target="#createArtikelModal">
                     <i class="fa-solid fa-plus"></i> Tambah Artikel
-                </button>
+                </button>  
                 <div class="table-container">
                     <table class="table table-hover">
                         <thead class="thead-light">

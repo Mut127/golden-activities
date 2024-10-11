@@ -5,6 +5,7 @@ use App\Http\Controllers\AktivitasController;
 use App\Http\Controllers\ArtikelController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
 use App\Http\Middleware\AdminMiddleware;
 use App\Models\Aktivitas;
 use App\Models\Artikel;
@@ -72,17 +73,30 @@ Route::middleware(['auth'])->group(function () {
 Route::middleware(['auth', AdminMiddleware::class])->group(function () {
     Route::get('/sesi/loggin', [SessionController::class, 'loggin'])->name('page.admin-dashboard');
     Route::get('/admin-dashboard', [AdminController::class, 'index'])->name('page.admin-dashboard');
+
+    // Routes for Aktivitas
     Route::get('/admin-aktivitas', [AktivitasController::class, 'index'])->name('aktivitas.index');
     Route::post('/admin-aktivitas', [AktivitasController::class, 'store'])->name('aktivitas.store');
-    Route::put('/admin-aktivitas/{id}', [AktivitasController::class, 'edit'])->name('aktivitas.edit');
+    Route::get('/admin-aktivitas/{id}/edit', [AktivitasController::class, 'edit'])->name('aktivitas.edit');
     Route::put('/admin-aktivitas/{id}', [AktivitasController::class, 'update'])->name('aktivitas.update');
     Route::delete('/admin-aktivitas/{aktivitas}', [AktivitasController::class, 'destroy'])->name('aktivitas.destroy');
+
+    // Routes for Artikel
     Route::get('/admin-artikel', [ArtikelController::class, 'index'])->name('artikels.index');
     Route::post('/admin-artikel', [ArtikelController::class, 'store'])->name('artikels.store');
-    Route::put('/admin-artikel/{id}', [ArtikelController::class, 'edit'])->name('artikels.edit');
+    Route::get('/admin-artikel/{id}/edit', [ArtikelController::class, 'edit'])->name('artikels.edit');
     Route::put('/admin-artikel/{id}', [ArtikelController::class, 'update'])->name('artikels.update');
     Route::delete('/admin-artikel/{artikels}', [ArtikelController::class, 'destroy'])->name('artikels.destroy');
+
+    // Routes for User (Admin-User Management)
+    Route::get('/admin-user', [UserController::class, 'index'])->name('user.index');
+    Route::get('/admin-user/create', [UserController::class, 'create'])->name('user.create');
+    Route::post('/admin-user', [UserController::class, 'store'])->name('user.store');
+    Route::get('/admin-user/{id}/edit', [UserController::class, 'edit'])->name('user.edit');
+    Route::put('/admin-user/{id}', [UserController::class, 'update'])->name('user.update');
+    Route::delete('/admin-user/{user}', [UserController::class, 'destroy'])->name('user.destroy');
 });
+
 
 //ADMIN
 // Route::get('/admin-aktivitas', function () {

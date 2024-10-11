@@ -30,31 +30,34 @@ class ArtikelController extends Controller
     }
 
     public function store(Request $request)
-    {
+{
+    $validated = $request->validate([
+        'judul' => 'required|string|max:255',
+        'content' => 'required|string',
+        'image_path' => 'nullable|image', // Pastikan gambar valid
+        'user_id' => 'nullable',
+    ]);
 
-        $validated = $request->validate([
-            'judul' => 'required|string|max:255',
-            'content' => 'required|string',
-            'image_path' => 'nullable|image',
-            'user_id' => 'nullable',
+    // Gunakan HTML Purifier untuk membersihkan konten
+    $config = HTMLPurifier_Config::createDefault();
+    $config->set('HTML.Allowed', 'p,a[href],ul,ol,li,b,i,strong,em,br,img[src|alt|title|width|height]');
+    $purifier = new HTMLPurifier($config);
+    $purifiedContent = $purifier->purify($validated['content']);
 
-        ]);
-        $config = HTMLPurifier_Config::createDefault();
-        $config->set('HTML.Allowed', 'p,a[href],ul,ol,li,b,i,strong,em,br,img[src|alt|title|width|height]');
-        $purifier = new HTMLPurifier($config);
-        $purifiedContent = $purifier->purify($validated['content']);
+    // Simpan gambar jika ada, atau biarkan null
+    $imagePath = $request->file('image_path') ? $request->file('image_path')->store('artikels', 'public') : null;
 
-        $user = Auth::user();
-        $imagePath = $request->file('image_path') ? $request->file('image_path')->store('artikels', 'public') : null;
+    // Simpan artikel ke dalam database
+    Artikel::create([
+        'judul' => $validated['judul'],
+        'content' => $purifiedContent,
+        'image_path' => $imagePath,
+        'user_id' => Auth::user()->id, // Pastikan pengguna saat ini disimpan sebagai penulis
+    ]);
 
-        Artikel::create(array_merge($validated, [
-            'content' => $purifiedContent,
-            'image_path' => $imagePath,
-            'user_id' => $user->id,
-        ]));
+    return redirect()->route('artikels.index')->with('success', 'Artikel created successfully.');
+}
 
-        return redirect()->route('artikel`.index')->with('success', 'artikels created successfully.');
-    }
 
     public function edit($id)
     {
