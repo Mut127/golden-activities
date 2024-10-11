@@ -62,7 +62,7 @@
                         </div>
                         <h2>Daftar Sekarang</h2>
                         <p>Ini merupakan tempat spesial kamu untuk bermain!</p>
-                        <form method="POST" action="/sesi/create" class="sign-up-form">
+                        <form method="POST" action="{{ route('sesi.create') }}" class="sign-up-form">
                             @csrf
                             <div class="form-group">
                                 <label for="email">Email</label>
@@ -70,12 +70,18 @@
                             </div>
                             <div class="form-group">
                                 <label for="name">Nama Lengkap</label>
-                                <input type="text" name="name" class="form-control" id="name" placeholder="Masukkan nama lengkap">
+                                <input type="text" name="name" value="{{ old('name') }}" class="form-control" id="name" placeholder="Masukkan nama lengkap">
+                                @error('name')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="form-group position-relative">
                                 <label for="password">Password</label>
-                                <input type="password" name="password" class="form-control" id="login-password" placeholder="Masukkan password">
-                                <i class="fas fa-eye eye-toggle" id="login-toggleBtn"></i> <!-- Eye icon for toggle -->
+                                <input type="password" name="password" value="{{ old('password') }}" class="form-control" id="login-password" placeholder="Masukkan password">
+                                <i class="fas fa-eye eye-toggle" id="login-toggleBtn"></i>
+                                @error('password')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror<!-- Eye icon for toggle -->
                             </div>
                             <div class="validation" id="validation">
                                 <ul>

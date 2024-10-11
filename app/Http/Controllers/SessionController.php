@@ -56,12 +56,12 @@ class SessionController extends Controller
         Session::flash('email', $request->email);
         $request->validate([
             'name' => 'required',
-            'number' => 'required',
+            'number' => 'nullable',
             'email' => 'required|email|unique:users',
             'password' => 'required|min:8'
         ], [
             'name.required' => 'Nama wajib diisi',
-            'number.required' => 'Nomor wajib diisi',
+            'number.nullable' => 'Nomor wajib diisi',
             'email.required' => 'Email wajib diisi',
             'email.email' => 'Masukkan email yang valid',
             'email.unique' => 'Email sudah pernah digunakan',

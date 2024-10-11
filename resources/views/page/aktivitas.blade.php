@@ -94,8 +94,8 @@
             </div>
             @else
             <div class="text-center my-5">
-                <h2 class="display-2" style="font-weight: bold; color:#9E9E9E">Artikel tidak ditemukan</h2>
-                <p class="lead">Maaf, artikel forum yang Anda cari tidak ditemukan di website ini.</p>
+                <h2 class="display-2" style="font-weight: bold; color:#9E9E9E">Aktivitas tidak ditemukan</h2>
+                <p class="lead">Maaf, aktivitas forum yang Anda cari tidak ditemukan di website ini.</p>
             </div>
             @endif
         </div>
