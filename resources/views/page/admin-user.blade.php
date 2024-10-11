@@ -92,19 +92,20 @@
                 width: 100%;
             }
         }
-        .btn-tambah-user {
-        background-color: #FFD25D;
-        color: black;
-        border: none;
-        margin-bottom: 20px;
-        border-radius: 8px;
-    }
 
-    .btn-tambah-user:hover {
-        background-color: #e6b84b;
-        /* Sedikit lebih gelap saat dihover */
-        color: black;
-    }
+        .btn-tambah-user {
+            background-color: #FFD25D;
+            color: black;
+            border: none;
+            margin-bottom: 20px;
+            border-radius: 8px;
+        }
+
+        .btn-tambah-user:hover {
+            background-color: #e6b84b;
+            /* Sedikit lebih gelap saat dihover */
+            color: black;
+        }
     </style>
 </head>
 
@@ -117,7 +118,7 @@
                 <h3 class="mb-4">User List</h3>
                 <button type="button" class="btn create-btn btn-tambah-user" data-toggle="modal" data-target="#createUserModal">
                     <i class="fa-solid fa-plus"></i> Tambah User
-                </button>  
+                </button>
                 <div class="table-container">
                     <table class="table table-hover">
                         <thead class="thead-light">
@@ -129,8 +130,6 @@
                                 <th scope="col">Number</th>
                                 <th scope="col">Profile Image</th>
                                 <th scope="col">User Type</th>
-                                <th scope="col">Password</th>
-                                <th scope="col">Remember Token</th>
                                 <th scope="col">Created At</th>
                                 <th scope="col">Updated At</th>
                                 <th scope="col">Action</th>
@@ -146,27 +145,26 @@
                                 <td>{{ $user->number }}</td>
                                 <td><img src="{{ Storage::url($user->profile_image) }}" alt="Profile Image" width="100"></td>
                                 <td>{{ $user->usertype }}</td>
-                                <td>{{ $user->password }}</td>
-                                <td>{{ $user->remember_token }}</td>
                                 <td>{{ $user->created_at }}</td>
                                 <td>{{ $user->updated_at }}</td>
                                 <td>
                                     <a href="{{ route('user.edit', $user->id) }}">Edit</a>
-                                    <form action="{{ route('user.destroy', $user->id) }}" method="POST">
+                                    <form action="{{ route('user.destroy', $user->id) }}" method="POST" style="display: inline;">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit">Delete</button>
+                                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                                     </form>
                                 </td>
                             </tr>
                             @endforeach
                         </tbody>
-                        
                     </table>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Modal for creating a new user -->
     <div class="modal fade" id="createUserModal" tabindex="-1" aria-labelledby="createUserModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl">
             <div class="modal-content">

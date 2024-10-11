@@ -3,27 +3,32 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Storage; // Untuk penyimpanan gambar
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
-    public function index()
+    public function index(Request $request): View
     {
-        // Mendapatkan semua pengguna
         $users = User::all();
-        return view('page.admin-user', compact('users'));
+        if (Auth::check() && Auth::user()->usertype == 'admin') {
+            return view('page.admin-user', compact('users'));
+        } else {
+            return view('page.user', compact('users'));
+        }
     }
 
-    public function create()
+    public function show($id)
     {
-        return view('user.create');
+        $user = User::findOrFail($id);
+        return view('page.detailuser', compact('user'));
     }
 
     public function store(Request $request)
     {
-        // Validasi input pengguna
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
@@ -33,8 +38,8 @@ class UserController extends Controller
             'password' => 'required|string|min:8|confirmed',
         ]);
 
-        // Proses unggah gambar profil jika ada
-        $imagePath = $request->file('profile_image') ? $request->file('profile_image')->store('profile_images', 'public') : null;
+        // Simpan gambar profil jika ada
+        $imagePath = $request->file('profile_image') ? $request->file('profile_image')->store('users', 'public') : null;
 
         // Buat pengguna baru
         User::create([
@@ -43,25 +48,20 @@ class UserController extends Controller
             'number' => $validated['number'],
             'profile_image' => $imagePath,
             'usertype' => $validated['usertype'],
-            'password' => Hash::make($validated['password']), // Hashing password
+            'password' => Hash::make($validated['password']),
         ]);
 
-        return redirect()->route('user.index')->with('success', 'User created successfully.');
+        return redirect()->route('users.index')->with('success', 'User created successfully.');
     }
 
     public function edit($id)
     {
-        // Mendapatkan data pengguna berdasarkan ID
         $user = User::findOrFail($id);
-        return view('user.edit', compact('user'));
+        return view('page.edit-user', compact('user'));
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, User $user)
     {
-        // Mendapatkan data pengguna berdasarkan ID
-        $user = User::findOrFail($id);
-
-        // Validasi input pengguna
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
@@ -73,12 +73,10 @@ class UserController extends Controller
 
         // Proses unggah gambar profil jika ada
         if ($request->hasFile('profile_image')) {
-            // Hapus gambar lama jika ada
             if ($user->profile_image) {
                 Storage::delete('public/' . $user->profile_image);
             }
-            // Simpan gambar baru
-            $imagePath = $request->file('profile_image')->store('profile_images', 'public');
+            $imagePath = $request->file('profile_image')->store('users', 'public');
         } else {
             $imagePath = $user->profile_image;
         }
@@ -90,25 +88,34 @@ class UserController extends Controller
             'number' => $validated['number'],
             'profile_image' => $imagePath,
             'usertype' => $validated['usertype'],
-            'password' => $validated['password'] ? Hash::make($validated['password']) : $user->password, // Update password jika ada
+            'password' => $validated['password'] ? Hash::make($validated['password']) : $user->password,
         ]);
 
-        return redirect()->route('user.index')->with('success', 'User updated successfully.');
+        return redirect()->route('users.index')->with('success', 'User updated successfully.');
     }
 
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        // Mendapatkan data pengguna berdasarkan ID
-        $user = User::findOrFail($id);
-
-        // Hapus gambar profil jika ada
         if ($user->profile_image) {
             Storage::delete('public/' . $user->profile_image);
         }
-
-        // Hapus data pengguna
+        
         $user->delete();
+        return redirect()->route('users.index')->with('success', 'User deleted successfully.');
+    }
 
-        return redirect()->route('user.index')->with('success', 'User deleted successfully.');
+    public function home(Request $request)
+    {
+        $users = User::query();
+        $latestUsers = $users->orderBy('created_at', 'desc')->paginate(4);
+
+        return view('page.beranda', compact('latestUsers'));
+    }
+
+    public function user(Request $request)
+    {
+        $users = User::query();
+        $users = $users->paginate(8);
+        return view('page.user', compact('users'));
     }
 }

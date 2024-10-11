@@ -90,7 +90,6 @@ Route::middleware(['auth', AdminMiddleware::class])->group(function () {
 
     // Routes for User (Admin-User Management)
     Route::get('/admin-user', [UserController::class, 'index'])->name('user.index');
-    Route::get('/admin-user/create', [UserController::class, 'create'])->name('user.create');
     Route::post('/admin-user', [UserController::class, 'store'])->name('user.store');
     Route::get('/admin-user/{id}/edit', [UserController::class, 'edit'])->name('user.edit');
     Route::put('/admin-user/{id}', [UserController::class, 'update'])->name('user.update');
