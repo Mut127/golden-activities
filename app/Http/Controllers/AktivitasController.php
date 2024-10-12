@@ -62,58 +62,62 @@ class AktivitasController extends Controller
     }
 
     public function edit($id)
-    {
-        $aktivitas = Aktivitas::findOrFail($id);
-        return view('page.edit-aktivitas', compact('aktivitas'));
-    }
-
-    public function update(Request $request, Aktivitas $aktivitas)
 {
+    // Cari aktivitas berdasarkan id
+    $aktivitas = Aktivitas::findOrFail($id);
     
-    // Validasi input
-    $validated = $request->validate([
-        'judul' => 'required',
-        'deskripsi' => 'required',
-        'image_path' => 'nullable|image',
-        'tgl_pelaksanaan' => 'required|date',
-        'waktu_pelaksanaan' => 'required',
-        'alamat' => 'required|string',
-        'kuota' => 'required|integer',
-        'kategori' => 'required|in:online,offline',
+    // Tipe form edit
+    $formtype = 'edit';
+    
+    // Render view 'aktivitas.edit' dengan data aktivitas dan formtype
+    return view('page.edit-aktivitas', compact('aktivitas', 'formtype'));
+}
+
+public function update(Request $request, $id)
+{
+    // Validasi data
+    $validatedData = $request->validate([
+        'judul' => ['required', 'string'],
+        'deskripsi' => ['required', 'string'],
+        'image_path' => ['nullable', 'file', 'image', 'max:2048'], // nullable agar tidak wajib diisi saat update
+        'tgl_pelaksanaan' => ['required', 'date'],
+        'waktu_pelaksanaan' => ['required'],
+        'alamat' => ['required', 'string'],
+        'kuota' => ['required', 'integer'],
+        'kategori' => ['required', 'in:online,offline'],
     ]);
 
-    // HTML Purifier untuk deskripsi
-    $config = HTMLPurifier_Config::createDefault();
-    $config->set('HTML.Allowed', 'p,a[href],ul,ol,li,b,i,strong,em,br,img[src|alt|title|width|height]');
-    $purifier = new HTMLPurifier($config);
-    $purifiedContent = $purifier->purify($validated['deskripsi']);
-
-    // Cek jika ada file gambar yang baru di-upload
-    if ($request->hasFile('image_path')) {
-        if ($aktivitas->image_path) {
-            Storage::delete('public/' . $aktivitas->image_path); // Hapus gambar lama
-        }
-        // Simpan gambar baru
-        $imagePath = $request->file('image_path')->store('aktivitas', 'public');
-    } else {
-        // Jika tidak ada gambar baru, tetap gunakan yang lama
-        $imagePath = $aktivitas->image_path;
-    }
+    // Cari aktivitas yang akan diupdate
+    $aktivitas = Aktivitas::findOrFail($id);
 
     // Update data aktivitas
-    $aktivitas->update([
-        'judul' => $validated['judul'],
-        'deskripsi' => $purifiedContent,
-        'image_path' => $imagePath,
-        'tgl_pelaksanaan' => $validated['tgl_pelaksanaan'],
-        'waktu_pelaksanaan' => $validated['waktu_pelaksanaan'],
-        'alamat' => $validated['alamat'],
-        'kuota' => $validated['kuota'],
-        'kategori' => $validated['kategori'],
-    ]);
+    $aktivitas->judul = $validatedData['judul'];
+    $aktivitas->deskripsi = $validatedData['deskripsi'];
+    $aktivitas->tgl_pelaksanaan = $validatedData['tgl_pelaksanaan'];
+    $aktivitas->waktu_pelaksanaan = $validatedData['waktu_pelaksanaan'];
+    $aktivitas->alamat = $validatedData['alamat'];
+    $aktivitas->kuota = $validatedData['kuota'];
+    $aktivitas->kategori = $validatedData['kategori'];
 
-    // Redirect setelah update
-    return redirect()->route('aktivitas.index')->with('success', 'Aktivitas updated successfully.');
+    // Jika ada file gambar baru yang diunggah, perbarui juga image_path
+    if ($request->hasFile('image_path')) {
+        // Simpan gambar baru
+        $filePath = $request->file('image_path')->store('aktivitas_images', 'public');
+
+        // Hapus gambar lama jika ada
+        if ($aktivitas->image_path) {
+            Storage::disk('public')->delete($aktivitas->image_path);
+        }
+
+        // Update kolom image_path dengan path baru
+        $aktivitas->image_path = $filePath;
+    }
+
+    // Simpan perubahan ke database
+    $aktivitas->save();
+
+    // Redirect ke halaman index aktivitas dengan pesan sukses
+    return redirect()->route('aktivitas.index')->with('success', 'Aktivitas successfully updated!');
 }
 
     public function destroy(Aktivitas $aktivitas)
