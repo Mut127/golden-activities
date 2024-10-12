@@ -17,14 +17,12 @@
         /* Sidebar Styling */
         .sidebar {
             background-color: #ffffff;
-            /* Sidebar background color */
             height: 100vh;
             padding-top: 20px;
             position: fixed;
             top: 0;
             left: 0;
             width: 300px;
-            /* Sidebar width */
             z-index: 1000;
             display: flex;
             flex-direction: column;
@@ -35,7 +33,6 @@
             color: #6c757d;
             font-size: 1rem;
             padding: 15px 25px;
-            /* Increased padding */
             font-weight: bold;
             display: flex;
             align-items: center;
@@ -53,14 +50,12 @@
 
         .sidebar .nav-link:hover {
             background-color: #704FE6;
-            /* Hover state color */
             color: white;
             border-radius: 8px;
         }
 
         .sidebar .text-center img {
             max-width: 150px;
-            /* Logo size */
             margin-bottom: 20px;
         }
 
@@ -94,7 +89,7 @@
                     </div>
                     <nav class="nav flex-column">
                         <a class="nav-link {{ Request::is('admin-dashboard') ? 'active' : '' }}" href="{{ url('/admin-dashboard') }}">
-                            <i class="fas fa-home"></i> Dashboard
+                            <i class="fas fa-tachometer-alt"></i> Dashboard
                         </a>
                         <a class="nav-link {{ Request::is('admin-aktivitas') ? 'active' : '' }}" href="{{ url('/admin-aktivitas') }}">
                             <i class="fas fa-tasks"></i> Aktivitas
@@ -112,7 +107,7 @@
                             <i class="fas fa-user"></i> User
                         </a>
                         <a class="nav-link {{ Request::is('/') ? 'active' : '' }}" href="{{ url('/') }}">
-                            <i class="fas fa-home"></i> Beranda
+                            <i class="fas fa-house"></i> Beranda
                         </a>
                     </nav>
                 </div>

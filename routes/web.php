@@ -7,6 +7,7 @@ use App\Http\Controllers\DaftarController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Middleware\AdminMiddleware;
 use App\Models\Aktivitas;
 use App\Models\Artikel;
@@ -103,6 +104,8 @@ Route::middleware(['auth', AdminMiddleware::class])->group(function () {
     Route::get('/admin-daftarkegiatan', [DaftarController::class, 'index'])->name('daftar_kegiatans.index');
     Route::delete('/admin-daftarkegiatan/{daftar_kegiatans}', [DaftarController::class, 'destroy'])->name('daftar_kegiatans.destroy');
 });
+
+Route::get('/admin-dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 
 
 Route::get('/admin-pencapaian', function () {
