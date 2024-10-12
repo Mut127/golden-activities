@@ -112,7 +112,7 @@
                 <label for="usertype" class="form-label">Jenis Pengguna</label>
                 <select class="form-control" id="usertype" name="usertype" required>
                     <option value="admin" {{ $user->usertype == 'admin' ? 'selected' : '' }}>Admin</option>
-                    <option value="user" {{ $user->usertype == 'user' ? 'selected' : '' }}>User</option>
+                    <option value="pengguna" {{ $user->usertype == 'pengguna' ? 'selected' : '' }}>User</option>
                 </select>
                 @if ($errors->has('usertype'))
                 <div class="text-danger">{{ $errors->first('usertype') }}</div>

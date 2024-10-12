@@ -31,9 +31,9 @@ Route::post('/sesi/create', [SessionController::class, 'create'])->name('sesi.cr
 // Route::get('/aktivitas', function () {
 //     return view('page.aktivitas');
 // });
-Route::get('/profile', function () {
-    return view('page.profile');
-});
+// Route::get('/profile', function () {
+//     return view('page.profile');
+// });
 Route::get('/reward', function () {
     return view('page.reward');
 });
@@ -66,7 +66,8 @@ Route::resource('aktivitas', AktivitasController::class);
 
 Route::middleware(['auth'])->group(function () {
     Route::match(['get', 'post'], '/profile', [SessionController::class, 'profile'])->name('profile');
-    Route::post('/profile/update', [SessionController::class, 'updateProfile'])->name('profile.update');
+    Route::get('/profile', [UserController::class, 'index'])->name('user.index');
+    Route::put('/profile/{id}', [UserController::class, 'update'])->name('user.update');
     Route::post('/profile/change-photo', [SessionController::class, 'changeProfilePhoto'])->name('profile.changePhoto');
     Route::post('/logout', [SessionController::class, 'logout'])->name('logout');
     Route::get('/profile/editpassword', [SessionController::class, 'password'])->name('profile.password');
@@ -78,6 +79,7 @@ Route::middleware(['auth'])->group(function () {
 Route::middleware(['auth', AdminMiddleware::class])->group(function () {
     Route::get('/sesi/loggin', [SessionController::class, 'loggin'])->name('page.admin-dashboard');
     Route::get('/admin-dashboard', [AdminController::class, 'index'])->name('page.admin-dashboard');
+    Route::get('/admin-dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 
     // Routes for Aktivitas
     Route::get('/admin-aktivitas', [AktivitasController::class, 'index'])->name('aktivitas.index');
@@ -105,7 +107,7 @@ Route::middleware(['auth', AdminMiddleware::class])->group(function () {
     Route::delete('/admin-daftarkegiatan/{daftar_kegiatans}', [DaftarController::class, 'destroy'])->name('daftar_kegiatans.destroy');
 });
 
-Route::get('/admin-dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+
 
 
 Route::get('/admin-pencapaian', function () {

@@ -28,56 +28,45 @@
         <h1 class="profile-title">Profil</h1> <!-- Judul Profil -->
         <div class="profile-content">
             <div class="profile-image">
-                <i class="fas fa-user-circle" style="font-size: 150px; color: #ccc;">
-                    @if(auth()->user()->profile_image)
-                    <img src="{{ asset('images/profile/' . auth()->user()->profile_image) }}" alt="Profile Photo" class="img-fluid">
-                    @else
-                    <img src="{{ asset('images/default-profile.png') }}" alt="Default Profile Photo" class="img-fluid">
-                    @endif
-                </i> <!-- Ikon profil -->
+
+                @if(auth()->user()->profile_image)
+
+                <img src="{{ Storage::url( auth()->user()->profile_image) }}" alt="Profile Photo" class="img-fluid">
+                @else
+                <i class="fas fa-user-circle" style="font-size: 150px; color: #ccc;"></i> <!-- Ikon profil -->
+                @endif
+
                 <div class="profile-buttons"> <!-- Tombol di bawah gambar -->
                     <button class="btn-upload">Ubah Foto</button>
                     <button class="btn-delete">Hapus Foto</button>
                 </div>
             </div>
-            <div class="profile-form"> <!-- Form profil -->
-                <label for="email" class="bold-text">Email</label>
-                <input type="email" id="email" class="purple-input" value="{{ auth()->user()->email }}" disabled>
+            <div class="profile-form">
 
-                <label for="name" class="bold-text">Nama Lengkap</label>
-                <input type="text" id="name" class="purple-input" value="{{ auth()->user()->name }}">
-                @error("name")
-                <div class="alert alert-danger">{{ $message }}</div>
-                @enderror
+                <form method="POST" action="{{ route('user.update', $user->id) }}" enctype="multipart/form-data">
+                    @csrf
+                    @method('PUT')
+                    <label for="email" class="bold-text">Email</label>
+                    <input type="email" id="email" class="purple-input" value="{{ auth()->user()->email }}" disabled>
 
-                <!-- <label for="birthdate" class="bold-text">Tanggal Lahir</label>
-                <input type="text" id="birthdate" value="10 Oktober 1977" class="purple-input" value="{{ auth()->user()->tgl_lahir }}">
-                @error("tgl_lahir")
-                <div class="alert alert-danger">{{ $message }}</div>
-                @enderror -->
+                    <label for="name" class="bold-text">Nama Lengkap</label>
+                    <input type="text" id="name" class="purple-input" name="name" value="{{ auth()->user()->name }}">
 
-                <!-- <label for="gender" class="bold-text">Jenis Kelamin</label>
-                <input type="text" id="gender" value="Pria" class="purple-input">
+                    @if ($errors->has('name'))
+                    <div class="text-danger">{{ $errors->first('name') }}</div>
+                    @endif
+                    <label for="phone" class="bold-text">Nomor Telepon</label>
+                    <input type="text" id="phone" class="purple-input" name="number" value="{{ auth()->user()->number }}">
+                    @if ($errors->has('number'))
+                    <div class="text-danger">{{ $errors->first('number') }}</div>
+                    @endif
+                    <label for="password" class="bold-text">Password (Kosongkan jika tidak ingin mengubah)</label>
+                    <input type="password" class="purple-input" id="password" name="password" value="{{ auth()->user()->password }}">
 
-                <label for="address" class="bold-text">Alamat</label>
-                <input type="text" id="address" class="purple-input" value="{{ auth()->user()->alamat}}">
-                @error("alamat")
-                <div class="alert alert-danger">{{ $message }}</div>
-                @enderror -->
-
-                <label for="phone" class="bold-text">Nomor Telepon</label>
-                <input type="text" id="phone" class="purple-input" value="{{ auth()->user()->number }}">
-                @error("number")
-                <div class="alert alert-danger">{{ $message }}</div>
-                @enderror
-
-                <label for="password" class="bold-text">Password</label>
-                <input type="password" id="password" class="purple-input" value="{{ auth()->user()->password }}">
-                @error("password")
-                <div class="alert alert-danger">{{ $message }}</div>
-                @enderror
-
-                <button class="btn-edit-profile">Edit Profil</button>
+                    <label for="password_confirmation" class="form-label">Konfirmasi Password</label>
+                    <input type="password" class="purple-input" id="password_confirmation" name="password_confirmation">
+                    <button class="btn-edit-profile">Edit Profil</button>
+                </form>
             </div>
         </div>
     </div>
