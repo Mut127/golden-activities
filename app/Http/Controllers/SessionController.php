@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Aktivitas;
+use App\Models\Artikel;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -35,7 +37,11 @@ class SessionController extends Controller
         if (Auth::attempt($infologin)) {
             $user = Auth::user();
             if ($user->usertype === 'admin') {
-                return redirect()->route('page.admin-dashboard')->with('success', 'Selamat Datang, ' . Auth::user()->name);
+                $totalAktivitas = Aktivitas::count();
+                $totalArtikel = Artikel::count();
+                $totalUser = User::count();
+
+                return view('page.admin-dashboard',  compact('totalAktivitas', 'totalArtikel', 'totalUser'))->with('success', 'Selamat Datang, ' . Auth::user()->name);
             } else {
                 return redirect('/')->with('success', 'Selamat Datang, ' . Auth::user()->name);
             }

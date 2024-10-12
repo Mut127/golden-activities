@@ -29,15 +29,15 @@
                         <h2>Halo,<br> Selamat Datang Kembali</h2>
                         <p>Ini merupakan tempat spesial kamu untuk bermain!</p>
 
-                        <form method="POST" action="/sesi/loggin" class="sign-in-form">
+                        <form method="POST" action="{{ route('sesi.loggin') }}" class="sign-in-form">
                             @csrf
                             <div class="form-group">
                                 <label for="email">Email</label>
-                                <input type="email" name="email" class="form-control" id="login-email" placeholder="Masukkan email">
+                                <input type="email" name="email" class="form-control" id="email" placeholder="Masukkan email">
                             </div>
                             <div class="form-group position-relative">
-                                <label for="login-password">Password</label>
-                                <input type="password" name="password" class="form-control" id="login-password" placeholder="Masukkan password">
+                                <label for="password">Password</label>
+                                <input type="password" name="password" class="form-control" id="password" placeholder="Masukkan password">
                                 <i class="fas fa-eye eye-toggle" id="login-toggleBtn"></i> <!-- Eye icon for toggle -->
                             </div>
                             <div class="form-check d-flex justify-content-between align-items-center">
@@ -66,7 +66,7 @@
                             @csrf
                             <div class="form-group">
                                 <label for="email">Email</label>
-                                <input type="email" name="email" class="form-control" id="register-email" placeholder="Masukkan email">
+                                <input type="email" name="email" class="form-control" id="-email" placeholder="Masukkan email">
                             </div>
                             <div class="form-group">
                                 <label for="name">Nama Lengkap</label>
@@ -76,9 +76,9 @@
                                 @enderror
                             </div>
                             <div class="form-group position-relative">
-                                <label for="register-password">Password</label>
-                                <input type="password" name="password" value="{{ old('password') }}" class="form-control" id="register-password" placeholder="Masukkan password">
-                                <i class="fas fa-eye eye-toggle" id="register-toggleBtn"></i> <!-- Eye icon for toggle -->
+                                <label for="password">Password</label>
+                                <input type="password" name="password" value="{{ old('password') }}" class="form-control" id="login-password" placeholder="Masukkan password">
+                                <i class="fas fa-eye eye-toggle" id="login-toggleBtn"></i>
                                 @error('password')
                                 <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
@@ -149,19 +149,14 @@
                 }
             }
 
-            // Password toggle function for login form
-            const loginPasswordField = document.getElementById('login-password');
-            const loginToggleBtn = document.getElementById('login-toggleBtn');
-
-            loginToggleBtn.onclick = function() {
-                if (loginPasswordField.type === 'password') {
-                    loginPasswordField.setAttribute('type', 'text');
-                    loginToggleBtn.classList.remove('fa-eye');
-                    loginToggleBtn.classList.add('fa-eye-slash');
+            // Password toggle function
+            toggleBtn.onclick = function() {
+                if (passwordField.type === 'password') {
+                    passwordField.setAttribute('type', 'text');
+                    toggleBtn.classList.add('hide');
                 } else {
-                    loginPasswordField.setAttribute('type', 'password');
-                    loginToggleBtn.classList.remove('fa-eye-slash');
-                    loginToggleBtn.classList.add('fa-eye');
+                    passwordField.setAttribute('type', 'password');
+                    toggleBtn.classList.remove('hide');
                 }
             }
 
@@ -192,6 +187,23 @@
                 number.test(data) ? digit.style.display = 'none' : digit.style.display = 'block';
                 special.test(data) ? specialChar.style.display = 'none' : specialChar.style.display = 'block';
                 length.test(data) ? minLength.style.display = 'none' : minLength.style.display = 'block';
+            }
+        });
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const loginPasswordField = document.getElementById('login-password');
+            const loginToggleBtn = document.getElementById('login-toggleBtn');
+            loginToggleBtn.onclick = function() {
+                // Toggle the eye icon between eye and eye-slash
+                if (loginPasswordField.type === 'password') {
+                    loginPasswordField.setAttribute('type', 'text');
+                    loginToggleBtn.classList.remove('fa-eye');
+                    loginToggleBtn.classList.add('fa-eye-slash');
+                } else {
+                    loginPasswordField.setAttribute('type', 'password');
+                    loginToggleBtn.classList.remove('fa-eye-slash');
+                    loginToggleBtn.classList.add('fa-eye');
+                }
             }
         });
     </script>

@@ -22,7 +22,7 @@ Route::get('login&register', function () {
     return view('sesi.login&register');
 });
 Route::get('/sesi', [SessionController::class, 'login'])->name('login');
-Route::post('/sesi/loggin', [SessionController::class, 'loggin']);
+Route::post('/sesi/loggin', [SessionController::class, 'loggin'])->name('sesi.loggin');
 
 Route::get('/sesi/register', [SessionController::class, 'register']);
 Route::post('/sesi/create', [SessionController::class, 'create'])->name('sesi.create');
@@ -66,6 +66,7 @@ Route::resource('aktivitas', AktivitasController::class);
 
 Route::middleware(['auth'])->group(function () {
     Route::match(['get', 'post'], '/profile', [SessionController::class, 'profile'])->name('profile');
+    Route::post('/profile/update', [SessionController::class, 'updateProfile'])->name('profile.update');
     Route::get('/profile', [UserController::class, 'index'])->name('user.index');
     Route::put('/profile/{id}', [UserController::class, 'update'])->name('user.update');
     Route::post('/profile/change-photo', [SessionController::class, 'changeProfilePhoto'])->name('profile.changePhoto');
@@ -77,9 +78,10 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::middleware(['auth', AdminMiddleware::class])->group(function () {
-    Route::get('/sesi/loggin', [SessionController::class, 'loggin'])->name('page.admin-dashboard');
+    Route::get('/sesi/loggin', [SessionController::class, 'loggin'])->name('sesi.loggin');
     Route::get('/admin-dashboard', [AdminController::class, 'index'])->name('page.admin-dashboard');
-    Route::get('/admin-dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+    Route::get('/admin-dashboard', [DashboardController::class, 'index'])->name('page.admin-dashboard');
+
 
     // Routes for Aktivitas
     Route::get('/admin-aktivitas', [AktivitasController::class, 'index'])->name('aktivitas.index');
@@ -106,6 +108,8 @@ Route::middleware(['auth', AdminMiddleware::class])->group(function () {
     Route::get('/admin-daftarkegiatan', [DaftarController::class, 'index'])->name('daftar_kegiatans.index');
     Route::delete('/admin-daftarkegiatan/{daftar_kegiatans}', [DaftarController::class, 'destroy'])->name('daftar_kegiatans.destroy');
 });
+// Route::get('/admin-dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+
 
 
 
