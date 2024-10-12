@@ -36,7 +36,7 @@
                                 <input type="email" name="email" class="form-control" id="login-email" placeholder="Masukkan email">
                             </div>
                             <div class="form-group position-relative">
-                                <label for="password">Password</label>
+                                <label for="login-password">Password</label>
                                 <input type="password" name="password" class="form-control" id="login-password" placeholder="Masukkan password">
                                 <i class="fas fa-eye eye-toggle" id="login-toggleBtn"></i> <!-- Eye icon for toggle -->
                             </div>
@@ -76,12 +76,12 @@
                                 @enderror
                             </div>
                             <div class="form-group position-relative">
-                                <label for="password">Password</label>
-                                <input type="password" name="password" value="{{ old('password') }}" class="form-control" id="login-password" placeholder="Masukkan password">
-                                <i class="fas fa-eye eye-toggle" id="login-toggleBtn"></i>
+                                <label for="register-password">Password</label>
+                                <input type="password" name="password" value="{{ old('password') }}" class="form-control" id="register-password" placeholder="Masukkan password">
+                                <i class="fas fa-eye eye-toggle" id="register-toggleBtn"></i> <!-- Eye icon for toggle -->
                                 @error('password')
                                 <div class="alert alert-danger">{{ $message }}</div>
-                                @enderror<!-- Eye icon for toggle -->
+                                @enderror
                             </div>
                             <div class="validation" id="validation">
                                 <ul>
@@ -133,14 +133,35 @@
                 loginForm.classList.remove('hidden');
             }
 
-            // Password toggle function
-            toggleBtn.onclick = function() {
-                if (passwordField.type === 'password') {
-                    passwordField.setAttribute('type', 'text');
-                    toggleBtn.classList.add('hide');
+            // Password toggle function for register form
+            const registerPasswordField = document.getElementById('register-password');
+            const registerToggleBtn = document.getElementById('register-toggleBtn');
+
+            registerToggleBtn.onclick = function() {
+                if (registerPasswordField.type === 'password') {
+                    registerPasswordField.setAttribute('type', 'text');
+                    registerToggleBtn.classList.remove('fa-eye');
+                    registerToggleBtn.classList.add('fa-eye-slash');
                 } else {
-                    passwordField.setAttribute('type', 'password');
-                    toggleBtn.classList.remove('hide');
+                    registerPasswordField.setAttribute('type', 'password');
+                    registerToggleBtn.classList.remove('fa-eye-slash');
+                    registerToggleBtn.classList.add('fa-eye');
+                }
+            }
+
+            // Password toggle function for login form
+            const loginPasswordField = document.getElementById('login-password');
+            const loginToggleBtn = document.getElementById('login-toggleBtn');
+
+            loginToggleBtn.onclick = function() {
+                if (loginPasswordField.type === 'password') {
+                    loginPasswordField.setAttribute('type', 'text');
+                    loginToggleBtn.classList.remove('fa-eye');
+                    loginToggleBtn.classList.add('fa-eye-slash');
+                } else {
+                    loginPasswordField.setAttribute('type', 'password');
+                    loginToggleBtn.classList.remove('fa-eye-slash');
+                    loginToggleBtn.classList.add('fa-eye');
                 }
             }
 
@@ -171,23 +192,6 @@
                 number.test(data) ? digit.style.display = 'none' : digit.style.display = 'block';
                 special.test(data) ? specialChar.style.display = 'none' : specialChar.style.display = 'block';
                 length.test(data) ? minLength.style.display = 'none' : minLength.style.display = 'block';
-            }
-        });
-        document.addEventListener("DOMContentLoaded", function() {
-            const loginPasswordField = document.getElementById('login-password');
-            const loginToggleBtn = document.getElementById('login-toggleBtn');
-
-            loginToggleBtn.onclick = function() {
-                // Toggle the eye icon between eye and eye-slash
-                if (loginPasswordField.type === 'password') {
-                    loginPasswordField.setAttribute('type', 'text');
-                    loginToggleBtn.classList.remove('fa-eye');
-                    loginToggleBtn.classList.add('fa-eye-slash');
-                } else {
-                    loginPasswordField.setAttribute('type', 'password');
-                    loginToggleBtn.classList.remove('fa-eye-slash');
-                    loginToggleBtn.classList.add('fa-eye');
-                }
             }
         });
     </script>

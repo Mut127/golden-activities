@@ -14,6 +14,9 @@
     body {
         font-family: 'Poppins', sans-serif;
     }
+    h2{
+        font-weight: bold;
+    }
     .sidebar {
         height: 100vh;
         background-color: #f8f9fa;
