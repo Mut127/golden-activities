@@ -6,6 +6,7 @@ use App\Http\Controllers\ArtikelController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Middleware\AdminMiddleware;
 use App\Models\Aktivitas;
 use App\Models\Artikel;
@@ -95,6 +96,8 @@ Route::middleware(['auth', AdminMiddleware::class])->group(function () {
     Route::put('/admin-user/{id}', [UserController::class, 'update'])->name('user.update');
     Route::delete('/admin-user/{user}', [UserController::class, 'destroy'])->name('user.destroy');
 });
+
+Route::get('/admin-dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 
 
 //ADMIN
