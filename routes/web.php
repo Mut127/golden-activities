@@ -3,12 +3,14 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AktivitasController;
 use App\Http\Controllers\ArtikelController;
+use App\Http\Controllers\DaftarController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\AdminMiddleware;
 use App\Models\Aktivitas;
 use App\Models\Artikel;
+use App\Models\DaftarKegiatan;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/', function () {
@@ -68,6 +70,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/logout', [SessionController::class, 'logout'])->name('logout');
     Route::get('/profile/editpassword', [SessionController::class, 'password'])->name('profile.password');
     Route::post('/profile/changepasswod', [SessionController::class, 'changePassword'])->name('password.changePassword');
+    Route::post('/aktivitas', [DaftarController::class, 'daftar'])->name('daftar_kegiatans.daftar');
+    Route::get('/todolist', [DaftarController::class, 'index'])->name('daftar_kegiatans.index');
 });
 
 Route::middleware(['auth', AdminMiddleware::class])->group(function () {
@@ -94,25 +98,13 @@ Route::middleware(['auth', AdminMiddleware::class])->group(function () {
     Route::get('/admin-user/{id}/edit', [UserController::class, 'edit'])->name('user.edit');
     Route::put('/admin-user/{id}', [UserController::class, 'update'])->name('user.update');
     Route::delete('/admin-user/{user}', [UserController::class, 'destroy'])->name('user.destroy');
+
+    // Routes for User (Admin-User Management)
+    Route::get('/admin-daftarkegiatan', [DaftarController::class, 'index'])->name('daftar_kegiatans.index');
+    Route::delete('/admin-daftarkegiatan/{daftar_kegiatans}', [DaftarController::class, 'destroy'])->name('daftar_kegiatans.destroy');
 });
 
 
-//ADMIN
-// Route::get('/admin-aktivitas', function () {
-//     return view('page.admin-aktivitas');
-// });
-// Route::get('/admin-dashboard', function () {
-//     return view('page.admin-dashboard');
-// });
-// Route::get('/admin-artikel', function () {
-//     return view('page.admin-artikel');
-// });
-Route::get('/admin-daftarkegiatan', function () {
-    return view('page.admin-daftarkegiatan');
-});
 Route::get('/admin-pencapaian', function () {
     return view('page.admin-pencapaian');
 });
-// Route::get('/admin-user', function () {
-//     return view('page.admin-user');
-// });

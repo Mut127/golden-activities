@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-    @extends('layouts.app-admin')
-    @section('content')
+@extends('layouts.app-admin')
+@section('content')
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,13 +24,15 @@
         }
 
         .content {
-            margin-left: 250px; /* Sidebar width */
+            margin-left: 250px;
+            /* Sidebar width */
             padding: 40px;
         }
 
         .table-container {
             width: 100%;
-            overflow-x: auto; /* Enable horizontal scrolling */
+            overflow-x: auto;
+            /* Enable horizontal scrolling */
             background-color: #ffffff;
             margin-right: 20px;
             padding: 20px;
@@ -38,15 +41,20 @@
         }
 
         .table {
-            width: 150%; /* Increase the width of the table */
-            max-width: none; /* Disable the max-width restriction */
-            font-size: 0.9rem; /* Reduce font size */
+            width: 150%;
+            /* Increase the width of the table */
+            max-width: none;
+            /* Disable the max-width restriction */
+            font-size: 0.9rem;
+            /* Reduce font size */
         }
 
-        .table th, .table td {
+        .table th,
+        .table td {
             vertical-align: middle;
             text-align: left;
-            padding: 12px; /* Reduce padding to make table more compact */
+            padding: 12px;
+            /* Reduce padding to make table more compact */
         }
 
         .action-icons {
@@ -71,11 +79,13 @@
         /* Make the table responsive for smaller screens */
         @media (max-width: 768px) {
             .content {
-                margin-left: 0; /* Remove margin for mobile screens */
+                margin-left: 0;
+                /* Remove margin for mobile screens */
             }
 
             .table-container {
-                width: 100%; /* Ensure table fits on small screens */
+                width: 100%;
+                /* Ensure table fits on small screens */
             }
 
             .table {
@@ -84,67 +94,56 @@
         }
     </style>
 </head>
+
 <body>
 
-<div class="container-fluid">
-    <div class="row">
-        <!-- Main Content -->
-        <div class="col-md-10 content">
-            <h3 class="mb-4">Content List</h3>
-            <div class="table-container">
-                <table class="table table-hover">
-                    <thead class="thead-light">
-                    <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">Status</th>
-                        <th scope="col">User ID</th>
-                        <th scope="col">Aktivitas ID</th>
-                        <th scope="col">Created At</th>
-                        <th scope="col">Updated At</th>
-                        <th scope="col">Action</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Approved</td>
-                        <td>1</td>
-                        <td>101</td>
-                        <td>2024-05-01</td>
-                        <td>2024-05-10</td>
-                        <td>
-                            <div class="action-icons">
-                                <a href="#" class="edit"><i class="fas fa-edit"></i></a>
-                                <a href="#" class="delete"><i class="fas fa-trash-alt"></i></a>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Pending</td>
-                        <td>2</td>
-                        <td>102</td>
-                        <td>2024-05-05</td>
-                        <td>2024-05-15</td>
-                        <td>
-                            <div class="action-icons">
-                                <a href="#" class="edit"><i class="fas fa-edit"></i></a>
-                                <a href="#" class="delete"><i class="fas fa-trash-alt"></i></a>
-                            </div>
-                        </td>
-                    </tr>
-                    <!-- Additional rows can go here -->
-                    </tbody>
-                </table>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Main Content -->
+            <div class="col-md-10 content">
+                <h3 class="mb-4">Content List</h3>
+                <div class="table-container">
+                    <table class="table table-hover">
+                        <thead class="thead-light">
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">User ID</th>
+                                <th scope="col">Aktivitas ID</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($daftar_kegiatans as $daftar)
+                            <tr>
+                                <td>{{$daftar->id}}</td>
+                                <td>{{$daftar->status}}</td>
+                                <td>{{$daftar->user->name}}</td>
+                                <td>{{$daftar->aktivitas->judul}}</td>
+                                <td>
+                                    <div class="action-icons">
+                                        <a href="#" class="edit"><i class="fas fa-edit"></i></a>
+                                        <form action="{{ route('daftar_kegiatans.destroy', $daftar->id) }}" method="POST" class="d-inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus orang ini?')"><i class="fas fa-trash-alt"></i></button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<!-- Bootstrap JS and dependencies -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 @endsection
+
 </html>

@@ -30,6 +30,6 @@ class Aktivitas extends Model
 
     public function daftar_kegiatans()
     {
-        return $this->hasMany(DaftarKegiatan::class);
+        return $this->belongsToMany(DaftarKegiatan::class, 'daftar');
     }
 }

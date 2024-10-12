@@ -68,53 +68,53 @@ class AktivitasController extends Controller
     }
 
     public function update(Request $request, Aktivitas $aktivitas)
-{
-    
-    // Validasi input
-    $validated = $request->validate([
-        'judul' => 'required',
-        'deskripsi' => 'required',
-        'image_path' => 'nullable|image',
-        'tgl_pelaksanaan' => 'required|date',
-        'waktu_pelaksanaan' => 'required',
-        'alamat' => 'required|string',
-        'kuota' => 'required|integer',
-        'kategori' => 'required|in:online,offline',
-    ]);
+    {
 
-    // HTML Purifier untuk deskripsi
-    $config = HTMLPurifier_Config::createDefault();
-    $config->set('HTML.Allowed', 'p,a[href],ul,ol,li,b,i,strong,em,br,img[src|alt|title|width|height]');
-    $purifier = new HTMLPurifier($config);
-    $purifiedContent = $purifier->purify($validated['deskripsi']);
+        // Validasi input
+        $validated = $request->validate([
+            'judul' => 'required',
+            'deskripsi' => 'required',
+            'image_path' => 'nullable|image',
+            'tgl_pelaksanaan' => 'required|date',
+            'waktu_pelaksanaan' => 'required',
+            'alamat' => 'required|string',
+            'kuota' => 'required|integer',
+            'kategori' => 'required|in:online,offline',
+        ]);
 
-    // Cek jika ada file gambar yang baru di-upload
-    if ($request->hasFile('image_path')) {
-        if ($aktivitas->image_path) {
-            Storage::delete('public/' . $aktivitas->image_path); // Hapus gambar lama
+        // HTML Purifier untuk deskripsi
+        $config = HTMLPurifier_Config::createDefault();
+        $config->set('HTML.Allowed', 'p,a[href],ul,ol,li,b,i,strong,em,br,img[src|alt|title|width|height]');
+        $purifier = new HTMLPurifier($config);
+        $purifiedContent = $purifier->purify($validated['deskripsi']);
+
+        // Cek jika ada file gambar yang baru di-upload
+        if ($request->hasFile('image_path')) {
+            if ($aktivitas->image_path) {
+                Storage::delete('public/' . $aktivitas->image_path); // Hapus gambar lama
+            }
+            // Simpan gambar baru
+            $imagePath = $request->file('image_path')->store('aktivitas', 'public');
+        } else {
+            // Jika tidak ada gambar baru, tetap gunakan yang lama
+            $imagePath = $aktivitas->image_path;
         }
-        // Simpan gambar baru
-        $imagePath = $request->file('image_path')->store('aktivitas', 'public');
-    } else {
-        // Jika tidak ada gambar baru, tetap gunakan yang lama
-        $imagePath = $aktivitas->image_path;
+
+        // Update data aktivitas
+        $aktivitas->update([
+            'judul' => $validated['judul'],
+            'deskripsi' => $purifiedContent,
+            'image_path' => $imagePath,
+            'tgl_pelaksanaan' => $validated['tgl_pelaksanaan'],
+            'waktu_pelaksanaan' => $validated['waktu_pelaksanaan'],
+            'alamat' => $validated['alamat'],
+            'kuota' => $validated['kuota'],
+            'kategori' => $validated['kategori'],
+        ]);
+
+        // Redirect setelah update
+        return redirect()->route('aktivitas.index')->with('success', 'Aktivitas updated successfully.');
     }
-
-    // Update data aktivitas
-    $aktivitas->update([
-        'judul' => $validated['judul'],
-        'deskripsi' => $purifiedContent,
-        'image_path' => $imagePath,
-        'tgl_pelaksanaan' => $validated['tgl_pelaksanaan'],
-        'waktu_pelaksanaan' => $validated['waktu_pelaksanaan'],
-        'alamat' => $validated['alamat'],
-        'kuota' => $validated['kuota'],
-        'kategori' => $validated['kategori'],
-    ]);
-
-    // Redirect setelah update
-    return redirect()->route('aktivitas.index')->with('success', 'Aktivitas updated successfully.');
-}
 
     public function destroy(Aktivitas $aktivitas)
     {

@@ -10,6 +10,11 @@ class DaftarKegiatan extends Model
     use HasFactory;
 
     protected $fillable = [
+        'name',
+        'tgl_lahir',
+        'alamat',
+        'jk',
+        'number',
         'status',
         'user_id',
         'aktivitas_id',

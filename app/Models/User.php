@@ -58,7 +58,7 @@ class User extends Authenticatable
     }
     public function daftar_kegiatans()
     {
-        return $this->hasMany(DaftarKegiatan::class);
+        return $this->belongsToMany(DaftarKegiatan::class, 'daftar');
     }
     public function pencapaian()
     {

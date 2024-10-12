@@ -60,32 +60,55 @@
         <!-- Registration Form Section -->
         <div class="form-section">
             <h4>Data Diri :</h4>
-            <form>
+            <form id="daftarForm" method="POST" action="{{ route('daftar_kegiatans.daftar') }}" enctype="multipart/form-data">
+                @csrf
                 <div class="form-group">
                     <label for="namaLengkap">Nama Lengkap</label>
-                    <input type="text" class="form-control" id="namaLengkap" placeholder="Masukkan nama lengkap Anda">
+                    <input type="text" class="form-control" id="namaLengkap" name="name" value="{{ old('name') }}" placeholder="Masukkan nama lengkap Anda" required>
+                    @error('name')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
                 </div>
+
                 <div class="form-group">
                     <label for="tanggalLahir">Tanggal Lahir</label>
-                    <input type="date" class="form-control" id="tanggalLahir">
+                    <input type="date" class="form-control" id="tanggalLahir" name="tgl_lahir" value="{{old('tgl_lahir')}}" required>
+                    @error('tgl_lahir')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
                 </div>
+
                 <div class="form-group">
                     <label for="jenisKelamin">Jenis Kelamin</label>
-                    <select class="form-control" id="jenisKelamin">
-                        <option>Pria</option>
-                        <option>Wanita</option>
+                    <select class="form-control" id="jenisKelamin" name="jk" required>
+                        <option value="laki-laki" {{ old('jk') == 'laki-laki' ? 'selected' : '' }}>Laki-laki</option>
+                        <option value="perempuan" {{ old('jk') == 'perempuan' ? 'selected' : '' }}>Perempuan</option>
                     </select>
                 </div>
+
                 <div class="form-group">
                     <label for="alamat">Alamat</label>
-                    <input type="text" class="form-control" id="alamat" placeholder="Masukkan alamat lengkap Anda">
+                    <input type="text" class="form-control" id="alamat" name="alamat" placeholder="Masukkan alamat lengkap Anda" value="{{old('alamat')}}" required>
+                    @error('alamat')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
                 </div>
+
                 <div class="form-group">
                     <label for="nomorTelepon">Nomor Telepon</label>
-                    <input type="text" class="form-control" id="nomorTelepon" placeholder="Masukkan nomor telepon Anda">
+                    <input type="text" class="form-control" id="nomorTelepon" name="number" placeholder="Masukkan nomor telepon Anda" value="{{old('number')}}" required>
+                    @error('number')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
                 </div>
+
+                <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+                <input type="hidden" name="aktivitas_id" value="{{ $aktivitas->id ?? '' }}">
+
+
                 <button type="submit" class="btn-daftar">Daftar</button>
             </form>
+
         </div>
     </div>
     <!-- JavaScript untuk Font Awesome -->
