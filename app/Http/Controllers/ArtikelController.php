@@ -9,6 +9,7 @@ use HTMLPurifier_Config;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage; // Tambahkan ini
 
 class ArtikelController extends Controller
 {
@@ -55,38 +56,65 @@ class ArtikelController extends Controller
         'user_id' => Auth::user()->id, // Pastikan pengguna saat ini disimpan sebagai penulis
     ]);
 
-    return redirect()->route('artikels.index')->with('success', 'Artikel created successfully.');
+    return redirect()->route('artikel.index')->with('success', 'Artikel created successfully.');
 }
 
 
-    public function edit($id)
-    {
-        $artikels = Artikel::findOrFail($id);
-        return view('page.edit-artikel', compact('artikels'));
+public function edit($id)
+{
+    // Cari artikel berdasarkan id
+    $artikels = Artikel::findOrFail($id);
+    
+    // Tipe form edit
+    $formtype = 'edit';
+
+    // Render view 'page.edit-artikel' dengan data artikel dan formtype
+    return view('page.edit-artikel', compact('artikels', 'formtype'));
+}
+
+public function update(Request $request, $id)
+{
+    // Validasi data
+    $validatedData = $request->validate([
+        'judul' => ['required', 'string'],
+        'content' => ['required', 'string'],
+        'image_path' => ['nullable', 'file', 'image', 'max:2048'], // nullable agar tidak wajib diisi saat update
+    ]);
+
+    // Cari artikel yang akan diupdate
+    $artikels = Artikel::findOrFail($id);
+
+    // HTML Purifier untuk membersihkan konten
+    $config = HTMLPurifier_Config::createDefault();
+    $config->set('HTML.Allowed', 'p,a[href],ul,ol,li,b,i,strong,em,br,img[src|alt|title|width|height]');
+    $purifier = new HTMLPurifier($config);
+    $purifiedContent = $purifier->purify($validatedData['content']);
+
+    // Jika ada file gambar baru yang diunggah, perbarui juga image_path
+    if ($request->hasFile('image_path')) {
+        // Simpan gambar baru
+        $filePath = $request->file('image_path')->store('artikel_images', 'public');
+
+        // Hapus gambar lama jika ada
+        if ($artikels->image_path) {
+            Storage::disk('public')->delete($artikels->image_path);
+        }
+
+        // Update kolom image_path dengan path baru
+        $artikels->image_path = $filePath;
     }
 
-    public function update(Request $request, Artikel $artikels)
-    {
-        $validated = $request->validate([
-            'judul' => 'required',
-            'content' => 'required',
-            'image_path' => 'nullable|image',
-        ]);
+    // Update data artikel
+    $artikels->update([
+        'judul' => $validatedData['judul'],
+        'content' => $purifiedContent,
+        'image_path' => $artikels->image_path ?? $artikels->image_path, // tetap gunakan path lama jika tidak ada yang baru
+        'user_id' => Auth::id(), // Mengupdate user_id untuk menyimpan user yang mengupdate
+    ]);
 
-        // HTML Purifier untuk deskripsi
-        $config = HTMLPurifier_Config::createDefault();
-        $config->set('HTML.Allowed', 'p,a[href],ul,ol,li,b,i,strong,em,br,img[src|alt|title|width|height]');
-        $purifier = new HTMLPurifier($config);
-        $purifiedContent = $purifier->purify($validated['content']);
-
-        // Update data artikels
-        $artikels->update(array_merge($validated, [
-            'content' => $purifiedContent,
-            'user_id' => Auth::id(),
-        ]));
-
-        return redirect()->route('artikel.index')->with('success', 'artikels updated successfully.');
-    }
+    // Redirect ke halaman index artikel dengan pesan sukses
+    return redirect()->route('artikels.index')->with('success', 'Artikel successfully updated!');
+}
 
 
     public function destroy(Artikel $artikels)

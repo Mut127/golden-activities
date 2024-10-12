@@ -51,48 +51,68 @@ class UserController extends Controller
             'password' => Hash::make($validated['password']),
         ]);
 
-        return redirect()->route('users.index')->with('success', 'User created successfully.');
+        return redirect()->route('user.index')->with('success', 'User created successfully.');
     }
 
     public function edit($id)
-    {
-        $user = User::findOrFail($id);
-        return view('page.edit-user', compact('user'));
-    }
+{
+    // Cari pengguna berdasarkan id
+    $user = User::findOrFail($id);
+    
+    // Tipe form edit
+    $formtype = 'edit';
+    
+    // Render view 'page.edit-user' dengan data user dan formtype
+    return view('page.edit-user', compact('user', 'formtype'));
+}
 
-    public function update(Request $request, User $user)
-    {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
-            'number' => 'required|string|max:15',
-            'profile_image' => 'nullable|image',
-            'usertype' => 'required|in:admin,user',
-            'password' => 'nullable|string|min:8|confirmed',
-        ]);
+public function update(Request $request, $id)
+{
+    // Validasi data
+    $validatedData = $request->validate([
+        'name' => ['required', 'string', 'max:255'],
+        'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . $id],
+        'number' => ['required', 'string', 'max:15'],
+        'profile_image' => ['nullable', 'file', 'image', 'max:2048'], // nullable agar tidak wajib diisi saat update
+        'usertype' => ['required', 'in:admin,user'],
+        'password' => ['nullable', 'string', 'min:8', 'confirmed'],
+    ]);
 
-        // Proses unggah gambar profil jika ada
-        if ($request->hasFile('profile_image')) {
-            if ($user->profile_image) {
-                Storage::delete('public/' . $user->profile_image);
-            }
-            $imagePath = $request->file('profile_image')->store('users', 'public');
-        } else {
-            $imagePath = $user->profile_image;
+    // Cari pengguna yang akan diupdate
+    $user = User::findOrFail($id);
+
+    // Jika ada file gambar profil baru yang diunggah, perbarui juga profile_image
+    if ($request->hasFile('profile_image')) {
+        // Simpan gambar baru
+        $filePath = $request->file('profile_image')->store('users', 'public');
+
+        // Hapus gambar lama jika ada
+        if ($user->profile_image) {
+            Storage::disk('public')->delete($user->profile_image);
         }
 
-        // Update data pengguna
-        $user->update([
-            'name' => $validated['name'],
-            'email' => $validated['email'],
-            'number' => $validated['number'],
-            'profile_image' => $imagePath,
-            'usertype' => $validated['usertype'],
-            'password' => $validated['password'] ? Hash::make($validated['password']) : $user->password,
-        ]);
-
-        return redirect()->route('users.index')->with('success', 'User updated successfully.');
+        // Update kolom profile_image dengan path baru
+        $user->profile_image = $filePath;
     }
+
+    // Update data pengguna
+    $user->name = $validatedData['name'];
+    $user->email = $validatedData['email'];
+    $user->number = $validatedData['number'];
+    $user->usertype = $validatedData['usertype'];
+    
+    // Update password jika ada
+    if ($validatedData['password']) {
+        $user->password = Hash::make($validatedData['password']);
+    }
+
+    // Simpan perubahan ke database
+    $user->save();
+
+    // Redirect ke halaman index pengguna dengan pesan sukses
+    return redirect()->route('user.index')->with('success', 'User updated successfully.');
+}
+
 
     public function destroy(User $user)
     {
@@ -101,7 +121,7 @@ class UserController extends Controller
         }
 
         $user->delete();
-        return redirect()->route('users.index')->with('success', 'User deleted successfully.');
+        return redirect()->route('user.index')->with('success', 'User deleted successfully.');
     }
 
     public function home(Request $request)
